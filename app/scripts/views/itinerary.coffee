@@ -2,7 +2,8 @@ define ['whichbus', 'models/itinerary', 'views/segment'], (WhichBus) ->
 	class WhichBus.Views.Itinerary extends Backbone.View
 		template: 'itinerary'
 
-		className: ''
+		tagName: 'li'
+		className: 'itinerary'
 
 		events:
 			'click header': 'toggle'
@@ -24,8 +25,9 @@ define ['whichbus', 'models/itinerary', 'views/segment'], (WhichBus) ->
 		afterRender: ->
 
 		toggle: -> 
-			@$('.segments').slideToggle().toggleClass('active')
-			if @$('.segments').hasClass 'active'
+			@$('.segments').slideToggle('fast')
+			@$el.toggleClass('active')
+			if @$el.hasClass 'active'
 				WhichBus.Map.map.fitBounds(@model.bounds())
 
 

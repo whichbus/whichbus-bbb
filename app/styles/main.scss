@@ -123,14 +123,18 @@ header {
 	[class^="icon-"], [class*=" icon-"] {
 		font-size: 18px;
 	}
-	.affordance {
+	.icon-affordance {
 		float: left;
 		font-size: 20px;
 		position: absolute;
 		top: 50%;
 		left: -1px;
 		margin-top: -10px;
+		@extend .icon-chevron-right;
 	}
+}
+.active .icon-affordance {
+	@extend .icon-chevron-down;
 }
 
 header, .gradient, header:hover, .gradient:hover {
@@ -237,7 +241,6 @@ a.icon:hover, a.icon.active {
 	}
 
 	@media #{$desktop} {
-		// position: absolute;
 		width: $sidebar_width;
 		margin-top: $navbar_height;
 	}
@@ -260,13 +263,13 @@ a.icon:hover, a.icon.active {
 	font-weight: normal;
 }
 
-#whichbus {
-	font-size: 2em;
-	line-height: 1.4em;
-	text-decoration: none;
-	border: none;
-	@include shadow-black(0.25);
-}
+// #whichbus {
+// 	font-size: 2em;
+// 	line-height: 1.4em;
+// 	text-decoration: none;
+// 	border: none;
+// 	@include shadow-black(0.25);
+// }
 
 
 .row-fluid [class*="span"].centered {

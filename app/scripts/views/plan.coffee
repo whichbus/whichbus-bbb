@@ -28,6 +28,7 @@ define ['whichbus', 'models/plan', 'views/itinerary'], (WhichBus) ->
 			@model.fetch()
 
 		serialize: -> 
+			# show loading bar if model does not contain itineraries
 			loading: not @model.get('itineraries')?
 
 		beforeRender: ->

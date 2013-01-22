@@ -1,6 +1,7 @@
 .whichbus-nav{
 	text-align: center;
 	a { 
+		font-size: 1.8em;
 		border: none !important; 
 		color: white;
 		label { display: none; }
@@ -25,6 +26,7 @@
 		vertical-align: middle;
 		@include shadow-black(0.25);
 		opacity: 0.99;
+		padding: 3px 0;
 	}
 	.icon:hover, .icon.active {
 		// invert border on hover or active
