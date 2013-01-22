@@ -13,7 +13,7 @@ define ['whichbus', 'models/segment'], (WhichBus) ->
 
 		beforeRender: ->
 			# TODO draw polylines and markers
-			@line = WhichBus.Map.polyline @model.legGeometry.points
+			@line = WhichBus.Map.polyline @model.legGeometry.points, WhichBus.Constants.SegmentColors[@model.mode]
 			@marker = WhichBus.Map.marker true, @model.mode, @model.from, WhichBus.Constants.Markers.StopDot
 
 			WhichBus.Map.addLayer @line

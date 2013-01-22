@@ -2,10 +2,6 @@ define ['whichbus', 'models/plan', 'views/itinerary'], (WhichBus) ->
 	class WhichBus.Views.Plan extends Backbone.View
 		template: 'plan'
 
-		className: ''
-
-		# events:
-			# events!
 		initialize: ->
 			# plan termini markers
 			@start = WhichBus.Map.marker true, 
@@ -16,9 +12,10 @@ define ['whichbus', 'models/plan', 'views/itinerary'], (WhichBus) ->
 				title: 'End'
 				icon: WhichBus.Constants.Markers.End
 				draggable: true
-			# WhichBus.Map.onMapEvent @start, 'dragend', @dragStart
-			# WhichBus.Map.onMapEvent @end, 'dragend', @dragEnd
-			# _.bindAll @, 'dragStart', 'dragEnd'
+			# drag events on markers, bind handlers to @ for closure
+			_.bindAll @, 'dragStart', 'dragEnd'
+			WhichBus.Map.onMapEvent @start, 'dragend', @dragStart
+			WhichBus.Map.onMapEvent @end, 'dragend', @dragEnd
 
 			# create a plan model
 			@model = new WhichBus.Models.Plan
@@ -34,34 +31,32 @@ define ['whichbus', 'models/plan', 'views/itinerary'], (WhichBus) ->
 			# @model.toJSON()
 
 		beforeRender: ->
-			# console.log 'itineraries:', @itineraries
-			# _.each @itineraries, (item) -> item.remove()
 			# move start and end markers to new locations now that the plan has loaded
 			WhichBus.Map.moveMarker @start, @model.get('from')
 			WhichBus.Map.moveMarker @end, @model.get('to')
 
-			@itineraries = []
 			@model.get('itineraries')?.each (item) =>
 				@insertView '#itineraries', new WhichBus.Views.Itinerary(model: item)
-				# @itineraries.push itin
 
 		afterRender: ->
-			# after render, cache selectors
 			@$('#title').html("#{@options.from} to #{@options.to}")
 
-		dragPlanTimeout: ->
-			clearTimeout @timeout if @timeout
-			@timeout = setTimeout @dragPlan, 500
-
 		# TODO: FIX DRAGGING! confusing type nonsense, method doesn't exist yadda yadda. SIMPIFY!
-		dragPlan: ->
-			@model.set
-				from: @start.getPosition()
-				to: @end.getPosition()
-			@model.fetch()
+		dragStart: (mouse) -> 
+			# Backbone.history.navigate "plan/#{mouse.latLng.coordStr()}/#{@model.get('to').coordStr()}"
+			@dragPlan 'from', mouse.latLng.toHash()
 
-		dragStart: (mouse) -> @model.set('from', mouse.latLng).fetch()
-		dragEnd:   (mouse) -> @model.set('to', mouse.latLng).fetch()
+		dragEnd:   (mouse) -> 
+			# Backbone.history.navigate "plan/#{@model.get('from').coordStr()}/#{mouse.latLng.coordStr()}"
+			@dragPlan 'to', mouse.latLng.toHash()
+
+		dragPlan: (which, where) -> 
+			# update from or to, clear itineraries, re-fetch
+			@model.set which, where
+			@model.set 'itineraries', null
+			@model.fetch()
+			# clearing the itineraries here causes them to disappear from the map
+			# between plan loads.
 
 		cleanup: ->
 			WhichBus.Map.removeLayer @start, @end

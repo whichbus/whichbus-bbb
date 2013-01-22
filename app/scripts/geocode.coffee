@@ -63,7 +63,7 @@ define [], ->
         # if the query is already a lat,lon pair then simply use that as location
         latLon = /^(-?\d+\.\d+),(-?\d+\.\d+)$/.exec(query)
         if latLon?
-          options.success({ lat: latLon[1], lng: latLon[2] })
+          options.success(position: { lat: latLon[1], lng: latLon[2] })
         # otherwise perform a quick storage lookup
         else if @cache(query)?
           options.success @cache(query)

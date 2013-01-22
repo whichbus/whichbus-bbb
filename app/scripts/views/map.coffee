@@ -1,6 +1,11 @@
 define ['lodash', 'whichbus', 'geocode'], (_, WhichBus, Geocode) ->
 	G = google.maps
 
+	G.LatLng::toArray = -> [@lat(), @lng()]
+	G.LatLng::toHash  = -> lat: @lat(), lng: @lng()
+	G.LatLng::coordStr = -> @lat().toFixed(7) + ',' + @lng().toFixed(7)
+	# Object::coordStr = -> @lat.toFixed(7) + ',' + (@lon or @lng).toFixed(7)
+
 	class WhichBus.Views.GoogleMap extends Backbone.View
 		initialize: ->
 			console.log 'CREATING MAP'
@@ -22,8 +27,9 @@ define ['lodash', 'whichbus', 'geocode'], (_, WhichBus, Geocode) ->
 				# icon: # SOME ICON
 
 		latlng: (param) ->
+			if param instanceof G.LatLng then param
 			# create as an array [lat, lon]
-			if _.isArray param then new G.LatLng param[0], param[1]
+			else if _.isArray param then new G.LatLng param[0], param[1]
 			# or as a hash { lat:?, lon:? }
 			else if _.isObject param then new G.LatLng param.lat, param.lon or param.lng
 			# or as two parameters latlng(lat, lon)

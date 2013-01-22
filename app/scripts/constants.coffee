@@ -9,3 +9,9 @@ define ->
 		StopDot: new G.MarkerImage('images/icons/bus/dot.png', 
 			new G.Size(17, 17), new G.Point(0, 0), new G.Point(6, 6), new G.Size(12, 12))
 		Bus: 'images/icons/icon-busstop.png'
+	SegmentColors: 
+		BUS: '#025d8c'
+		BIKE: 'green'
+		WALK: 'black'
+		TRAM: '#1693a5'
+		FERRY: '#f02311'

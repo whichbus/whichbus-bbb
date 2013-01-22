@@ -1,6 +1,6 @@
 define ['whichbus', 'geocode', 'models/itinerary'], (WhichBus, Geocode) ->
 	# Geocode.initialize(WhichBus.map.map)
-	WhichBus.Models.Plan = Backbone.Model.extend
+	class WhichBus.Models.Plan extends Backbone.Model
 		urlRoot: WhichBus.otp + 'plan'
 		# url: 'plan'
 
@@ -17,12 +17,12 @@ define ['whichbus', 'geocode', 'models/itinerary'], (WhichBus, Geocode) ->
 			# reverseOptimizeOnTheFly: true
 			showIntermediateStops: true
 
-		parse: (plan) ->
-			@set
-				date: new Date(plan.date)
-				from: plan.from
-				to: plan.to
-				itineraries: new WhichBus.Collections.Itineraries(plan.itineraries)
+		parse: (response, options) ->
+			plan = response.plan
+			date: new Date(plan.date)
+			from: plan.from
+			to: plan.to
+			itineraries: new WhichBus.Collections.Itineraries(plan.itineraries)
 
 		resolveLocations: (callback) ->
 			Geocode.lookup 
@@ -37,16 +37,22 @@ define ['whichbus', 'geocode', 'models/itinerary'], (WhichBus, Geocode) ->
 							callback()
 						
 		sync: (method, model, options) ->
+			@trigger 'request'
 			if method == 'read'
 				@resolveLocations =>
-					$.get @url(), @request(), (response) =>
+					$.getJSON @url(), @request(), (response) =>
 						clearTimeout @time
 						# OTP returns status 200 for everything, so handle response manually
 						if response.error?
-							options.error response.error.msg
-						else options.success response.plan
+							@trigger 'error'
+							options.error response, response.error.msg
+						else
+							@trigger 'sync' 
+							options.success model, response
 					@time = setTimeout (=> @trigger('plan:timeout')), 7000
-			else options.error 'Plan is read-only.'
+			else
+				@trigger 'error' 
+				options.error 'Plan is read-only.'
 
 		request: -> $.extend {}, @defaultOptions,
 			# date: Transit.format_otp_date(@get('date'))
