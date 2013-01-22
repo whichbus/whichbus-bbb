@@ -1,0 +1,198 @@
+// requires absolute positioning for overflow scroll
+#navigation {
+  min-width: 320px;
+
+  @media #{$desktop} {
+    @include stretch($title_height, auto, 0, 0);
+    overflow: auto;
+    width: $sidebar_width;
+    @include box-shadow(0 0 4px rgba(0,0,0,0.25));
+  }
+
+  @media #{$tablet} {
+  }
+  @media #{$phone} {
+  }
+
+  header {
+    text-transform: none;
+  }
+
+  header.options {
+    @include clearfix();
+    @include box-shadow(0 0 3px 1px rgba(0,0,0,0.15));
+    z-index: 10;
+  }
+  form.options {
+    display: none;
+    background-color: whiteSmoke;
+    margin: 0;
+    box-sizing: border-box;
+    fieldset {
+      padding: 10px;
+    }
+    div { margin-bottom: 8px; }
+    input {
+      box-sizing: border-box;
+      width: auto;
+      vertical-align: baseline;
+      @media #{$phone} { width: auto !important; }
+    }
+    input.date { @include size(30px, 88%) }
+    input.time { @include size(30px, 62%) }
+    label {
+      @media #{$phone} { width: 40% !important; }
+    }
+    .btn-group {
+      .btn {
+        width: 36px;
+        padding: 4px 0;
+      }
+    }
+    .time ~ .btn {
+      width: 30px;
+      padding: 4px 0;
+      @media #{$phone} { display: none; }
+    }
+  }
+
+  ol {
+    // z-index: -1;
+    li {
+      color: #565656;
+      border-top: 1px solid #565656 * 2;
+      border-bottom: 1px solid #ababab;
+      @include gradient-vertical(#e1e0e0, #d2d2d2)
+    }
+  }
+  ol.itineraries, ol.trips {
+    clear: both;
+  }
+  ol.segments {
+    display: none;
+  }
+
+  .itineraries, .segments, .arrivals, .routes, .trips, .stops {
+    list-style: none;
+    margin: 0;
+    @include clearfix();
+  }
+  .stops > li { padding: $sidebar_margin;}
+
+  .route-list {
+    margin: 0;
+    list-style-type: none;
+    padding-left: $sidebar_margin;
+    padding-right: $sidebar_margin;
+    li {
+      display: inline-block;
+      margin: 5px 5px 0 0;
+    }
+  }
+
+  .routes {
+    padding-left: $sidebar_margin;
+    padding-right: $sidebar_margin;
+    li {
+      float: left;
+      margin: $sidebar_margin/2 $sidebar_margin/2 0 0;
+    }
+  }
+  .routes.collapse.in { padding-bottom: $sidebar_margin /2 }
+
+  .itinerary {
+    margin: 0;
+    border-bottom: 0;
+    overflow: auto;
+    h4 {
+      padding: 5px $sidebar_margin;
+      cursor: pointer;
+      small { color: lightgrey; }
+    }
+    .summary {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      margin-top: -14px;
+    }
+    .details {
+      font-style: italic;
+      margin-left: 10px;
+      line-height: 20px;
+      margin-top: 3px;
+      i {
+        color: #999;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+      }
+    }
+  }
+  li.itinerary:first-child {
+    border-top: none;
+  }
+
+  .trip {
+    padding: 8px $sidebar_margin;
+  }
+
+  .segments { z-index: 0; }
+  .segment, .arrival {
+    @include clearfix();
+    padding: 5px $sidebar_margin;
+    // border-top: 1px dashed $tableBorder;
+  }
+  .segment {
+    border-top: 1px solid #f3f3f3;
+    line-height: 30px;
+  }
+  li.segment:last-child {
+    border-bottom: none;
+  }
+  li.itinerary:last-child li.segment:last-child {
+    border-bottom: 1px solid #ababab;
+  }
+  .segment:hover {
+    background-color: $tableBackgroundHover;
+  }
+  .segment .label {
+    float: right;
+    margin-left: 5px;
+  }
+
+  .progress-striped {
+
+    margin: $sidebar_margin;
+    .bar {
+      width: 100%;
+      @include gradient-striped(#86bdcf, -45deg);
+    }
+  }
+
+  .timing {
+    display: block;
+    text-align: right;
+    padding: 3px 0;
+
+    .label {
+      display: inline-block;
+      margin-bottom: 2px;
+    }
+    .real-time {
+      display: none;
+    }
+  }
+  .alert {
+    margin: $sidebar_margin;
+    strong { display:block; }
+  }
+  .alert:not(.show) { display: none; }
+
+  .btn-update {
+    @extend .btn-go;
+    display: block;
+    margin: 10px auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-transform: uppercase;
+    // float: right;
+  }
+}
