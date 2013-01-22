@@ -14,12 +14,10 @@ define ["jquery", "lodash", "backbone", "libs/backbone.layoutmanager", "format",
   JST = window.JST = window.JST or {}
   
   # Configure LayoutManager with Backbone Boilerplate defaults.
-  Backbone.LayoutManager.configure
+  Backbone.Layout.configure
     manage: true
 
-    paths:
-      layout: "templates/layouts/"
-      template: "templates/"
+    prefix: 'templates/'
 
     fetch: (path) ->
       path = path + ".html"
@@ -47,7 +45,7 @@ define ["jquery", "lodash", "backbone", "libs/backbone.layoutmanager", "format",
       @layout.remove()  if @layout
       # Create a new Layout.
       layout = new Backbone.Layout
-        template: name
+        template: 'layouts/' + name
         className: "layout " + name
         id: "layout"
       # Insert into the DOM.
