@@ -3,7 +3,7 @@
   min-width: 320px;
 
   @media #{$desktop} {
-    @include stretch($title_height, auto, 0, 0);
+    // @include stretch($title_height, auto, 0, 0);
     overflow: auto;
     width: $sidebar_width;
     @include box-shadow(0 0 4px rgba(0,0,0,0.25));

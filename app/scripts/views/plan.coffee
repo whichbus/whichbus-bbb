@@ -28,7 +28,7 @@ define ['whichbus', 'models/plan', 'views/itinerary'], (WhichBus) ->
 			@model.fetch()
 
 		serialize: -> 
-			# @model.toJSON()
+			loading: not @model.get('itineraries')?
 
 		beforeRender: ->
 			# move start and end markers to new locations now that the plan has loaded
@@ -39,9 +39,10 @@ define ['whichbus', 'models/plan', 'views/itinerary'], (WhichBus) ->
 				@insertView '#itineraries', new WhichBus.Views.Itinerary(model: item)
 
 		afterRender: ->
-			@$('#title').html("#{@options.from} to #{@options.to}")
+			$('#title h3').html("#{@options.from} to #{@options.to}")
+			# expand first itinerary
+			@$('#itineraries header:first').click()
 
-		# TODO: FIX DRAGGING! confusing type nonsense, method doesn't exist yadda yadda. SIMPIFY!
 		dragStart: (mouse) -> 
 			# Backbone.history.navigate "plan/#{mouse.latLng.coordStr()}/#{@model.get('to').coordStr()}"
 			@dragPlan 'from', mouse.latLng.toHash()

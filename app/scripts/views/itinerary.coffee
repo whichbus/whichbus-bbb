@@ -4,7 +4,8 @@ define ['whichbus', 'models/itinerary', 'views/segment'], (WhichBus) ->
 
 		className: ''
 
-		# events:
+		events:
+			'click header': 'toggle'
 			# events!
 
 		initialize: ->
@@ -22,4 +23,11 @@ define ['whichbus', 'models/itinerary', 'views/segment'], (WhichBus) ->
 
 		afterRender: ->
 
+		toggle: -> 
+			@$('.segments').slideToggle().toggleClass('active')
+			if @$('.segments').hasClass 'active'
+				WhichBus.Map.map.fitBounds(@model.bounds())
+
+
 		cleanup: ->
+			# _.each @views, (item) -> item.cleanup()
