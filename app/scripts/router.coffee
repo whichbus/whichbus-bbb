@@ -20,7 +20,6 @@ define ['whichbus', 'views/index', 'views/navbar', 'views/map', 'views/plan'], (
       WhichBus.layout.setView('#navigation', new WhichBus.Views.Plan
         from: from
         to: to
-        
       ).render()
 
 

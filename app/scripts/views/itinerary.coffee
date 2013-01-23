@@ -7,7 +7,6 @@ define ['whichbus', 'models/itinerary', 'views/segment'], (WhichBus) ->
 
 		events:
 			'click header': 'toggle'
-			# events!
 
 		initialize: ->
 
@@ -18,18 +17,16 @@ define ['whichbus', 'models/itinerary', 'views/segment'], (WhichBus) ->
 			# index:
 
 		beforeRender: ->
-			# draw polylines
+			# add a view for each segment. Views.Segment handles polylines and markers
 			_.each @model.get('legs'), (leg) =>
 				@insertView '.segments', new WhichBus.Views.Segment(model: leg)
 
 		afterRender: ->
 
+		# toggle expanded appearance of itinerary
 		toggle: -> 
 			@$('.segments').slideToggle('fast')
 			@$el.toggleClass('active')
+			# fit bounds when expanded
 			if @$el.hasClass 'active'
 				WhichBus.Map.map.fitBounds(@model.bounds())
-
-
-		cleanup: ->
-			# _.each @views, (item) -> item.cleanup()

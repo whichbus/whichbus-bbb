@@ -1,8 +1,6 @@
 define ['whichbus', 'geocode', 'models/itinerary'], (WhichBus, Geocode) ->
-	# Geocode.initialize(WhichBus.map.map)
 	class WhichBus.Models.Plan extends Backbone.Model
 		urlRoot: WhichBus.otp + 'plan'
-		# url: 'plan'
 
 		defaults:
 			numItineraries: 3
@@ -17,6 +15,7 @@ define ['whichbus', 'geocode', 'models/itinerary'], (WhichBus, Geocode) ->
 			# reverseOptimizeOnTheFly: true
 			showIntermediateStops: true
 
+		# parse OTP response, return attributes to set on model
 		parse: (response, options) ->
 			plan = response.plan
 			date: new Date(plan.date)
@@ -24,6 +23,7 @@ define ['whichbus', 'geocode', 'models/itinerary'], (WhichBus, Geocode) ->
 			to: plan.to
 			itineraries: new WhichBus.Collections.Itineraries(plan.itineraries)
 
+		# geocode from and to locations before syncing
 		resolveLocations: (callback) ->
 			Geocode.lookup 
 				query: @get('from'), 
@@ -33,12 +33,14 @@ define ['whichbus', 'geocode', 'models/itinerary'], (WhichBus, Geocode) ->
 						query: @get('to'), 
 						success: (result) =>
 							@set 'to', result.position
-							console.log "we did it!", @get('from'), @get('to')
 							callback()
 						
+		# overloading sync so we can do some fanciness
+		# TODO event parameters
 		sync: (method, model, options) ->
 			@trigger 'request'
 			if method == 'read'
+				# first find from and to locations
 				@resolveLocations =>
 					$.getJSON @url(), @request(), (response) =>
 						clearTimeout @time
@@ -54,6 +56,7 @@ define ['whichbus', 'geocode', 'models/itinerary'], (WhichBus, Geocode) ->
 				@trigger 'error' 
 				options.error 'Plan is read-only.'
 
+		# create the request params from the models, needs some preprocessing
 		request: -> $.extend {}, @defaultOptions,
 			# date: Transit.format_otp_date(@get('date'))
 			# time: Transit.format_otp_time(@get('date'))
@@ -64,6 +67,7 @@ define ['whichbus', 'geocode', 'models/itinerary'], (WhichBus, Geocode) ->
 			toPlace: @positionString @get('to')
 			numItineraries: @get('desired_itineraries')
 
+		# form nice lat,lng string regardless of position format (object or G.LatLng)
 		positionString: (position) ->
 			if _.isFunction position.lat
 				"#{position.lat()},#{position.lng()}"

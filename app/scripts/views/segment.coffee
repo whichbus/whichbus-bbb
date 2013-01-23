@@ -1,6 +1,5 @@
 define ['whichbus', 'models/segment'], (WhichBus) ->
 	class WhichBus.Views.Segment extends Backbone.View
-		# TODO base template on mode
 
 		tagName: 'li'
 		className: 'segment'
@@ -8,17 +7,15 @@ define ['whichbus', 'models/segment'], (WhichBus) ->
 		initialize: ->
 
 		serialize: -> @model
-			# TODO pretty up the templates
 
 		beforeRender: ->
+			# choose template based on segment mode of transportation
 			@template = 'partials/' + @model.mode.toLowerCase()
-
+			# create map elements
 			@line = WhichBus.Map.polyline @model.legGeometry.points, WhichBus.Constants.SegmentColors[@model.mode]
 			@marker = WhichBus.Map.marker true, @model.mode, @model.from, WhichBus.Constants.Markers.StopDot
-
 			WhichBus.Map.addLayer @line
 
-		afterRender: ->
-
 		cleanup: ->
+			# don't forget to remove the map elements when we're done!
 			WhichBus.Map.removeLayer @line, @marker

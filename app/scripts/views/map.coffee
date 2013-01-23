@@ -1,6 +1,7 @@
 define ['lodash', 'whichbus', 'geocode'], (_, WhichBus, Geocode) ->
 	G = google.maps
 
+	# convenience methods for translating G.LatLng into other useful types
 	G.LatLng::toArray = -> [@lat(), @lng()]
 	G.LatLng::toHash  = -> lat: @lat(), lng: @lng()
 	G.LatLng::coordStr = -> @lat().toFixed(7) + ',' + @lng().toFixed(7)
@@ -8,7 +9,6 @@ define ['lodash', 'whichbus', 'geocode'], (_, WhichBus, Geocode) ->
 
 	class WhichBus.Views.GoogleMap extends Backbone.View
 		initialize: ->
-			console.log 'CREATING MAP'
 			mapOptions =
 				center: new G.LatLng(47.62167, -122.349072)
 				zoom: 13
@@ -26,6 +26,8 @@ define ['lodash', 'whichbus', 'geocode'], (_, WhichBus, Geocode) ->
 				draggable: false
 				# icon: # SOME ICON
 
+		# create a G.LatLng from pretty much any input format
+		# array [lat,lng] | object {lat,lng} | function args (lat,lng)
 		latlng: (param) ->
 			if param instanceof G.LatLng then param
 			# create as an array [lat, lon]
@@ -33,10 +35,15 @@ define ['lodash', 'whichbus', 'geocode'], (_, WhichBus, Geocode) ->
 			# or as a hash { lat:?, lon:? }
 			else if _.isObject param then new G.LatLng param.lat, param.lon or param.lng
 			# or as two parameters latlng(lat, lon)
-			else new G.LatLng(arguments[0], arguments[1] ? arguments[0])
+			else if parseInt arguments[0] # must be numbers
+				new G.LatLng(arguments[0], arguments[1] ? arguments[0])
+			# otherwise, fail and return null
+			else null
 
-		# marker [true], 'marker', [x,y], [icon]
-		# marker true, {}
+		# create a G.Marker and optionally add it to the map.
+		# accepts two formats: 
+		#  1. marker([true,] 'marker', [x,y], [icon])
+		#  2. marker([true,] {options})
 		marker: (add, options, position, icon) ->
 			# maybe we only get an options array...
 			if arguments.length is 1
@@ -60,10 +67,15 @@ define ['lodash', 'whichbus', 'geocode'], (_, WhichBus, Geocode) ->
 			if add then @addLayer marker # ...unless asked.
 			marker
 
-		moveMarker: (marker, position) ->
-			marker.setPosition @latlng position
+		# move the given marker to the given position, optionally adding it to the map
+		moveMarker: (marker, position, add) ->
+			pos = @latlng position
+			if pos
+				marker.setPosition pos
+				if add then @addLayer marker
 			@
 
+		# create a polyline from the encoded points string
 		polyline: (points, color = '#000', weight = 5, opacity = 0.6) ->
 			points = G.geometry.encoding.decodePath(points)
 			new G.Polyline
@@ -72,11 +84,12 @@ define ['lodash', 'whichbus', 'geocode'], (_, WhichBus, Geocode) ->
 				strokeWeight: weight,
 				strokeOpacity: opacity
 
+		# create an array of polylines from an array of points
 		multiPolyline: (polylinesArray, color) ->
 			# TODO: replace with _.map
 			polylines = []
 			for poly in polylinesArray
-				polylines.push @create_polyline(poly, color)
+				polylines.push @polyline(poly, color)
 			polylines
 
 		# adds an item or array of items to the map
@@ -95,7 +108,7 @@ define ['lodash', 'whichbus', 'geocode'], (_, WhichBus, Geocode) ->
 				mapLayer?.setMap null
 			@
 
-		# MAP EVENTS
+		# MAP EVENT BINDERS
 		onMapEvent: (overlay, event, callback) ->
 			G.event.addListener overlay, event, callback
 

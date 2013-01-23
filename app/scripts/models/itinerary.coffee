@@ -1,9 +1,10 @@
 define ['whichbus', 'geocode'], (WhichBus, Geocode) ->
-	# Geocode.initialize(WhichBus.map.map)
 	class WhichBus.Models.Itinerary extends Backbone.Model
+		# plain-text summary of routes involved in trip
 		summary: ->
 			_.pluck(_.filter(@get('legs'), (leg) -> leg.mode not in ['WALK', 'BIKE']), 'route').join(', ')
 
+		# HTML summary of routes involved in trip
 		summaryHTML: ->
 			index = 0
 			stops = _.map(_.filter(@get('legs'), (leg) -> leg.mode not in ['WALK', 'BIKE']), (leg) -> 
@@ -15,20 +16,22 @@ define ['whichbus', 'geocode'], (WhichBus, Geocode) ->
 			stops = "#{stops} <span class='btn btn-route expand'>+#{index-2}</span>" if index > 2
 			return stops
 
+		# nicely formatted trip timing string
 		timing: ->
 			start = WhichBus.format_time(@get('startTime'))
 			end   = WhichBus.format_time(@get('endTime'))
 			total = WhichBus.format_duration(@get('duration') / 1000)
 			"#{start}–#{end} (#{total})"
 
+		# nicely formatted durations string
 		duration: ->
 			walk = WhichBus.format_duration(@get('walkTime'), true)
 			wait = WhichBus.format_duration(@get('waitingTime'), true)
 			bus =  WhichBus.format_duration(@get('transitTime'), true)
 			"#{walk} walking, #{bus} transit"
 
+		# create and cache bounds surrounding all points in leg geometry
 		bounds: ->
-			# create and cache bounds surrounding all points in leg geometry
 			unless @get 'bounds'
 				bounds = new google.maps.LatLngBounds()
 				for leg in @get('legs')

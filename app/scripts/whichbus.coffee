@@ -4,10 +4,14 @@ define ["jquery", "lodash", "backbone", "libs/backbone.layoutmanager", "format",
   app = 
     # The root path to run the application.
     root: "/"
+    # API URLs for Backbone models
     otp: 'http://dev.whichb.us/api/otp/'
+    api: 'http://dev.whichb.us/workshop/'
+    # nested objects for modules
     Views: {}
     Models: {}
     Collections: {}
+    # and don't forget the constants
     Constants: Constants
   
   # Localize or create a new JavaScript Template object.
