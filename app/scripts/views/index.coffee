@@ -2,24 +2,17 @@ define ['whichbus'], (WhichBus) ->
 	WhichBus.Views.Index = Backbone.View.extend
 		template: 'splash'
 
-		className: 'container-fluid unselectable'
+		className: 'unselectable'
 
 		events:
 			'submit form': 'loadPlan'
-			# 'click #from-location': 'fromCurrentLocation'
-			# 'click #to-location': 'toCurrentLocation'
-
-		initialize: ->
-			# view setup
-
-		serialize: -> 
-			# @model.toJSON()
+			'click #from-location': 'fromCurrentLocation'
+			'click #to-location': 'toCurrentLocation'
 
 		beforeRender: ->
-			# set and insert views
-
-		afterRender: ->
-			# after render, cache selectors
+			# HACK to make this view appear fullscreen without changing the layout
+			# see main.scss > .layout.splash
+			$('#layout').addClass('splash')
 
 		loadPlan: (event) ->
 			event.preventDefault()
@@ -37,11 +30,12 @@ define ['whichbus'], (WhichBus) ->
 				@remove()
 				Backbone.history.navigate "plan/#{from}/#{to}", true
 
-		# fromCurrentLocation: -> 
-		# 	Transit.Geocode.getCurrentPosition (-> @$("#from_query").val('here')), ->
-		# 		$('button.geolocate').attr('disabled', true)
+		fromCurrentLocation: -> @$("#from_query").val('here')
+			# Transit.Geocode.getCurrentPosition (-> @$("#from_query").val('here')), ->
+			# 	$('button.geolocate').attr('disabled', true)
 
+		toCurrentLocation: -> @$("#to_query").val('here')
+			# Transit.Geocode.getCurrentPosition (-> @$("#to_query").val('here')), ->
+			# 	$('button.geolocate').attr('disabled', true)
 
-		# toCurrentLocation: -> 
-		# 	Transit.Geocode.getCurrentPosition (-> @$("#to_query").val('here')), ->
-		# 		$('button.geolocate').attr('disabled', true)
+		cleanup: -> $('#layout').removeClass('splash')

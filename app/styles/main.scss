@@ -131,10 +131,11 @@ header {
 		left: -1px;
 		margin-top: -10px;
 		@extend .icon-chevron-right;
+		@include transition(all 0.3s);
 	}
 }
 .active .icon-affordance {
-	@extend .icon-chevron-down;
+	@include rotate(90deg);
 }
 
 header, .gradient, header:hover, .gradient:hover {
@@ -797,5 +798,18 @@ div.popout {
 	background-position: -60px 0;
 }
 .icon-wb-bike {
+}
+
+// FUN HACK to make splash form occupy the entire screen
+.layout.splash {
+	// hide map and title, they're not needed here
+	#map, #title { display: none}
+	// the form is actually in #navigation so make that div fullscreen
+	#navigation {
+		width: auto;
+		@extend .container-fluid;
+		margin: 50px auto 20px;
+		@include box-shadow(none);
+	}
 }
 
