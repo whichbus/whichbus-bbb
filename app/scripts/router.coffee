@@ -14,9 +14,11 @@ define ['whichbus', 'views/index', 'views/navbar', 'views/map', 'views/plan'], (
 
     index: ->
       # WhichBus.useLayout 'splash'
+      WhichBus.Map.resize()
       WhichBus.layout.setView('#navigation', new WhichBus.Views.Index()).render()
 
     plan: (from, to, params) ->
+      WhichBus.Map.resize()
       WhichBus.layout.setView('#navigation', new WhichBus.Views.Plan
         from: from
         to: to

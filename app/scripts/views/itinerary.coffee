@@ -14,7 +14,6 @@ define ['whichbus', 'models/itinerary', 'views/segment'], (WhichBus) ->
 			summary: @model.summaryHTML()
 			timing: @model.timing()
 			duration: @model.duration()
-			# index:
 
 		beforeRender: ->
 			# add a view for each segment. Views.Segment handles polylines and markers

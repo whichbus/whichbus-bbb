@@ -1,5 +1,6 @@
 define ['whichbus', 'geocode'], (WhichBus, Geocode) ->
 	class WhichBus.Models.Itinerary extends Backbone.Model
+		
 		# plain-text summary of routes involved in trip
 		summary: ->
 			_.pluck(_.filter(@get('legs'), (leg) -> leg.mode not in ['WALK', 'BIKE']), 'route').join(', ')

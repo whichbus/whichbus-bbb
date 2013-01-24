@@ -26,6 +26,8 @@ define ['lodash', 'whichbus', 'geocode'], (_, WhichBus, Geocode) ->
 				draggable: false
 				# icon: # SOME ICON
 
+		resize: -> G.event.trigger @, 'resize'
+
 		# create a G.LatLng from pretty much any input format
 		# array [lat,lng] | object {lat,lng} | function args (lat,lng)
 		latlng: (param) ->
