@@ -18,10 +18,14 @@ define ['whichbus', 'geocode', 'models/itinerary'], (WhichBus, Geocode) ->
 		# parse OTP response, return attributes to set on model
 		parse: (response, options) ->
 			plan = response.plan
+			# turn each raw itinerary into Model and make a Collection out of them
+			itineraries = new WhichBus.Collections.Itineraries _.map plan.itineraries, (item) ->
+				new WhichBus.Models.Itinerary item
+			# the model's attributes!
 			date: new Date(plan.date)
 			from: plan.from
 			to: plan.to
-			itineraries: new WhichBus.Collections.Itineraries(plan.itineraries)
+			itineraries: itineraries
 
 		# geocode from and to locations before syncing
 		resolveLocations: (callback) ->
