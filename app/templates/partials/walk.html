@@ -1,4 +1,4 @@
-Walk to <a class="btn btn-stop" <% if (to.stopId) { %> "href='/stops/<%= to.stopId.agencyId %>/<%= to.stopId.id %>'"<% } %>><%= to.name %></a>
-<span class="timing pull-right">
+<span class="timing">
 	<span class="duration label"><%= WhichBus.format_time(startTime) %></span>
 </span>
+Walk to <a class="btn btn-stop" <% if (to.stopId) { %> "href='/stops/<%= to.stopId.agencyId %>/<%= to.stopId.id %>'"<% } %>><%= to.name %></a>

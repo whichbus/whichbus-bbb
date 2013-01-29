@@ -126,9 +126,6 @@
       }
     }
   }
-  li.itinerary:first-child {
-    border-top: none;
-  }
 
   .trip {
     padding: 8px $sidebar_margin;
@@ -140,46 +137,56 @@
     padding: 5px $sidebar_margin;
     // border-top: 1px dashed $tableBorder;
   }
-  .segment {
-    border-top: 1px solid #f3f3f3;
-    line-height: 30px;
-  }
-  li.segment:last-child {
-    border-bottom: none;
-  }
-  li.itinerary:last-child li.segment:last-child {
-    border-bottom: 1px solid #ababab;
-  }
-  .segment:hover {
-    background-color: $tableBackgroundHover;
-  }
-  .segment .label {
-    float: right;
-    margin-left: 5px;
-  }
 
   .progress-striped {
-
     margin: $sidebar_margin;
+
     .bar {
       width: 100%;
       @include gradient-striped(#86bdcf, -45deg);
     }
   }
 
-  .timing {
-    display: block;
-    text-align: right;
-    padding: 3px 0;
-
-    .label {
-      display: inline-block;
-      margin-bottom: 2px;
+  .itinerary {
+    &:first-child {
+      border-top: none;
     }
-    .real-time {
-      display: none;
+
+    .segment {
+      border-top: 1px solid #f3f3f3;
+      line-height: 30px;
+    
+      &:last-child {
+        border-bottom: none;
+      }
+    
+      &:hover {
+        background-color: $tableBackgroundHover;
+      }
+    
+      & > span{
+        float: left;
+        vertical-align: middle;
+      }
+
+      .action {
+        text-align: right;
+        padding-right: 5px;
+      }
     }
   }
+
+  .timing {
+    text-align: right;
+    padding: 3px $sidebar_margin 5px 0;
+    text-align: center;
+
+    .label {
+      line-height: 1.5em;
+      display: inline-block;
+    }
+  }
+
   .alert {
     margin: $sidebar_margin;
     strong { display:block; }
@@ -193,6 +200,5 @@
     padding-left: 20px;
     padding-right: 20px;
     text-transform: uppercase;
-    // float: right;
   }
 }
