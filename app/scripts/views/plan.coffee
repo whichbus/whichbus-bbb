@@ -8,10 +8,12 @@ define ['whichbus', 'models/plan', 'views/itinerary'], (WhichBus) ->
 				title: 'Start'
 				icon: WhichBus.Constants.Markers.Start
 				draggable: true
+				zIndex: 3
 			@end = WhichBus.Map.marker
 				title: 'End'
 				icon: WhichBus.Constants.Markers.End
 				draggable: true
+				zIndex: 3
 			# drag events on markers, bind handlers to @ for closure
 			_.bindAll @, 'dragStart', 'dragEnd'
 			WhichBus.Map.onMapEvent @start, 'dragend', @dragStart
@@ -21,7 +23,7 @@ define ['whichbus', 'models/plan', 'views/itinerary'], (WhichBus) ->
 
 		reloadPlan: (from, to) -> 
 			# create a plan model
-			@model = new WhichBus.Models.Plan from: from, to: to
+			@model = WhichBus.plan = new WhichBus.Models.Plan from: from, to: to
 			# render when the plan's attributes change
 			@model.on 'change', @render, @
 			# and get it loading. this will geocode from/to and hit OTP.

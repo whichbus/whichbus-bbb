@@ -1,5 +1,7 @@
 define ['whichbus', 'geocode'], (WhichBus, Geocode) ->
 	class WhichBus.Models.Itinerary extends Backbone.Model
+
+		leg: (index) -> @get('legs')[index]
 		
 		# plain-text summary of routes involved in trip
 		summary: ->
@@ -22,7 +24,7 @@ define ['whichbus', 'geocode'], (WhichBus, Geocode) ->
 			start = WhichBus.format_time(@get('startTime'))
 			end   = WhichBus.format_time(@get('endTime'))
 			total = WhichBus.format_duration(@get('duration') / 1000)
-			"#{start}–#{end} (#{total})"
+			"#{start} (#{total})"
 
 		# nicely formatted durations string
 		duration: ->

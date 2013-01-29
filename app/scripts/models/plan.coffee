@@ -15,6 +15,8 @@ define ['whichbus', 'geocode', 'models/itinerary'], (WhichBus, Geocode) ->
 			# reverseOptimizeOnTheFly: true
 			showIntermediateStops: true
 
+		itinerary: (index) -> @get('itineraries').models[index]
+
 		# parse OTP response, return attributes to set on model
 		parse: (response, options) ->
 			plan = response.plan

@@ -1,5 +1,6 @@
 define ->
 	G = google.maps
+	TransitTypes: ['BUS', 'TRAM', 'FERRY']
 	# the various Google Map Markers we use
 	Markers:
 		Start: new G.MarkerImage('images/icons/icon-start-location.png', 

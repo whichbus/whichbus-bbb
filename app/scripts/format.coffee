@@ -1,34 +1,25 @@
 define -> 
+  pad = (num, zeroes) -> (1e10+num+'').slice(-zeroes)
+
   parse_date: (input) ->
     parts = input.match(/(\d+)-(\d+)-(\d+) (\d+):(\d+)\s*(pm|am){0,1}/i)
     hours = if parts[6]?.toLowerCase() == 'pm' then parseInt(parts[4]) + 12 else parts[4]
     new Date(parts[1], parts[2]-1, parts[3], hours, parts[5])
 
-  format_time: (input) ->
+  format_time: (input, period=true) ->
+    # make sure we have a Date object and extract relevant bits
     date = if input not instanceof Date then new Date(input) else input
-    hours = date.getHours() % 12 || 12
-    minutes = date.getMinutes()
-    padded_minutes = "#{if minutes < 10 then '0' else ''}#{minutes}"
-    period = if date.getHours() < 12 then 'am' else 'pm'
-    "#{hours}:#{padded_minutes} #{period}"
+    hours = date.getHours() 
+    # assemble main time string
+    time = "#{hours % 12 || 12}:#{pad(date.getMinutes(), 2)}"
+    # add period string if enabled (default = true)
+    if period then time += " #{if hours < 12 then 'a' else 'p'}m"
+    time
 
-  format_otp_date: (input) ->
+  # YYYY-MM-DD format with custom separator
+  format_date: (input, separator='-') ->
     date = if input not instanceof Date then new Date(input) else input
-    month = date.getMonth() + 1
-    padded_month = "#{if month < 10 then '0' else ''}#{month}"
-    day = date.getDate()
-    padded_day = "#{if day < 10 then '0' else ''}#{day}"
-    year = date.getFullYear()
-    "#{year}-#{padded_month}-#{padded_day}"
-
-  format_otp_time: (input) ->
-    date = if input not instanceof Date then new Date(input) else input
-    hours = date.getHours()
-    zone = if hours > 11 then 'pm' else 'am'
-    minutes = date.getMinutes()
-    padded_minutes = "#{if minutes < 10 then '0' else ''}#{minutes}"
-    # "#{hours % 12}:#{padded_minutes} #{zone}" - no longer valid for Chrome input:time field
-    "#{hours}:#{padded_minutes}"
+    [date.getFullYear(), pad(date.getMonth() + 1, 2), pad(date.getDate(), 2)].join(separator)
 
   format_duration: (seconds, minimize) ->
     # if no second parameter specified then auto-minimize if time > 1 hour
@@ -58,3 +49,4 @@ define ->
     if seconds > 30 then 'early label-success'
     else if seconds > -30 then 'on-time label-info'
     else 'late label-important'
+    
