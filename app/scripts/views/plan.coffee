@@ -34,6 +34,10 @@ define ['whichbus', 'models/plan', 'views/itinerary'], (WhichBus) ->
 
 		serialize: -> 
 			# show loading bar if model does not contain itineraries
+			to: @model.get('to')
+			from: @model.get('from')
+			fromPlace: @model.get('fromPlace')
+			toPlace: @model.get('toPlace')
 			loading: not @model.get('itineraries')?
 
 		beforeRender: ->

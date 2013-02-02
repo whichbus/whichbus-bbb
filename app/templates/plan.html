@@ -1,10 +1,16 @@
-<header class="options subnav teal">
-    <h3>
-        <a class="icon popout pull-right" id="options" title="customize journey">
-            <i class="icon-reorder"></i>
-        </a>
-        Suggested Itineraries
-    </h3>
+<header class="teal" id="title">
+	<i class="icon-affordance icon-reply"></i></span>
+	<div>
+		<% if(fromPlace && fromPlace.name) { %>
+		<strong><%= fromPlace.name %></strong> <%= fromPlace.vicinity %><br/>
+		<strong><%= toPlace.name %></strong> <%= toPlace.vicinity %>
+		<% } else { %>
+		<%= from.name %><br/><%= to.name %>
+		<% } %>
+	    <a class="icon popout" id="options" title="customize journey">
+	        <i class="icon-reorder icon-affordance right"></i>
+	    </a>
+	</div>
 </header>
 
 <ol class="itineraries" id="itineraries"></ol>

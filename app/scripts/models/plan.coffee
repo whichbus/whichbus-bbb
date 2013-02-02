@@ -31,14 +31,16 @@ define ['whichbus', 'geocode', 'models/itinerary'], (WhichBus, Geocode) ->
 
 		# geocode from and to locations before syncing
 		resolveLocations: (callback) ->
+			# store geocode results in *Place so OTP won't overwrite them.
+			# use silent sets to prevent refreshes.
 			Geocode.lookup 
 				query: @get('from'), 
 				success: (result) =>
-					@set 'from', result.position
+					@set 'fromPlace', result, silent: true
 					Geocode.lookup 
 						query: @get('to'), 
 						success: (result) =>
-							@set 'to', result.position
+							@set 'toPlace', result, silent: true
 							callback()
 						
 		# overloading sync so we can do some fanciness
@@ -69,8 +71,8 @@ define ['whichbus', 'geocode', 'models/itinerary'], (WhichBus, Geocode) ->
 			arriveBy: @get('arrive_by')
 			mode: @get('modes').join()
 			optimize: @get('optimize')
-			fromPlace: @positionString @get('from')
-			toPlace: @positionString @get('to')
+			fromPlace: @positionString @get('fromPlace').position
+			toPlace: @positionString @get('toPlace').position
 			numItineraries: @get('desired_itineraries')
 
 		# form nice lat,lng string regardless of position format (object or G.LatLng)

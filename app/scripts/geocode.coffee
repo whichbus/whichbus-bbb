@@ -75,7 +75,7 @@ define [], ->
               console.log "GEOCODE RESULTS (#{results.length}):", results
               results = _.map results, (item) ->
                 # trim zip code and country from formatted address
-                address: item.name or (/^(.+)\d{5}/.exec(item.formatted_address)?[1] ? item.formatted_address)
+                name: item.name or (/^(.+)\d{5}/.exec(item.formatted_address)?[1] ? item.formatted_address)
                 vicinity: item.vicinity
                 position: item.geometry.location
               if options.modal and results.length > 1
@@ -97,7 +97,7 @@ define [], ->
           
         if success
           success
-            address: 'Current Location'
+            name: 'Current Location'
             position: @lastCurrentPosition
       # error = -> callback()
       navigator.geolocation.getCurrentPosition callback, 

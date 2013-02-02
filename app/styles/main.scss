@@ -130,9 +130,14 @@ header {
 		top: 50%;
 		left: -1px;
 		margin-top: -10px;
-		@extend .icon-chevron-right;
 		@include transition(all 0.3s);
+
+		&.right {
+			left: auto;
+			right: 0;
+		}
 	}
+
 }
 .active .icon-affordance {
 	@include rotate(90deg);
@@ -231,14 +236,21 @@ a.icon:hover, a.icon.active {
 	@include box-shadow(0 0 4px rgba(0,0,0,0.25));
 	z-index: 1;
 
-	h3 {
+	div {
 		text-transform: none;
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
+		font-size: 14px;
+		line-height: 22px;
+		padding: 3px 5px 3px 15px;
+		position: relative;
+		text-indent: -5px;
 	}
-	h3:first-letter {
-		text-transform: uppercase;
+
+	.icon-reply {
+		left: 5px;
+		@include rotate(-135deg);
 	}
 
 	@media #{$desktop} {
