@@ -1,13 +1,20 @@
 <div class="navbar navbar-fixed-top unselectable">
 	<div class="navbar-inner">
-		<div class="container-fluid whichbus-nav">
-			<div id="text-logo" class="block left">
+		<div class="whichbus-nav">
+			<div id="text-logo" class="block pull-left">
 				<a href="#">WhichBus</a>
 			</div>
-			<div class="block right">
-	            <a id="settings" class="icon settings popout" rel="tooltip" title="settings" data-popout="Settings">
+			<div class="block pull-right">
+	            <a class="icon settings dropdown" rel="tooltip" title="settings" data-target="#">
 	              <i class="icon-cog"></i><label>Settings</label>
 	            </a>
+	            <ul class="dropdown-menu unstyled" id="settings">
+	            	<li><a href="#settings"><i class="icon-wrench"></i> Settings</a></li>
+	            	<li><a href="http://whichbus.uservoice.com/forums/181861-feedback" target="_blank">
+	            		<i class="icon-bullhorn"></i> Feedback <i class="icon-external-link"></i>
+	            	</a></li>
+	            	<li><a href="#about"><i class="icon-question-sign"></i> About</a></li>
+	            </ul>
 			</div>
 		</div>
 	</div>

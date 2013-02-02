@@ -1,14 +1,10 @@
-define ['whichbus'], (WhichBus) ->
+define ['whichbus', 'views/popout', 'bootstrap/bootstrap-dropdown'], (WhichBus, PopoutView) ->
 	WhichBus.Views.Navbar = Backbone.View.extend
 		template: 'navbar'
 
 		className: ''
 
-		events:
-			'click a.popout': 'showPopout'
-
 		initialize: ->
-			# view setup
 
 		serialize: -> 
 			# @model.toJSON()
@@ -17,6 +13,4 @@ define ['whichbus'], (WhichBus) ->
 			# set and insert views
 
 		afterRender: ->
-			# after render, cache selectors
-
-		showPopout: ->
+			$('.dropdown').dropdown()
