@@ -26,7 +26,7 @@ define ['lodash', 'whichbus', 'geocode'], (_, WhichBus, Geocode) ->
 				draggable: false
 				# icon: # SOME ICON
 
-		resize: -> G.event.trigger @, 'resize'
+		resize: -> G.event.trigger @map, 'resize'
 
 		# create a G.LatLng from pretty much any input format
 		# array [lat,lng] | object {lat,lng} | function args (lat,lng)
@@ -116,3 +116,11 @@ define ['lodash', 'whichbus', 'geocode'], (_, WhichBus, Geocode) ->
 
 		offMapEvent: (listener) ->
 			G.event.removeListener listener
+			
+	# Symbols:
+	# 	Circle: G.SymbolPath.CIRCLE
+	# 				fillColor: @segmentColors[leg.mode] ? 'black'
+	# 				fillOpacity: 0.8
+	# 				strokeColor: 'black'
+	# 				strokeWeight: 1
+	# 				scale: 5.5

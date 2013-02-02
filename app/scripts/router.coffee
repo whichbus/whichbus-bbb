@@ -13,16 +13,15 @@ define ['whichbus', 'views/index', 'views/navbar', 'views/map', 'views/plan'], (
       WhichBus.layout.setView('#map', WhichBus.Map = new WhichBus.Views.GoogleMap()).render()
 
     index: ->
-      # WhichBus.useLayout 'splash'
-      WhichBus.Map.resize()
       WhichBus.layout.setView('#navigation', new WhichBus.Views.Index()).render()
+      WhichBus.Map.resize()
 
     plan: (from, to, params) ->
-      WhichBus.Map.resize()
       WhichBus.layout.setView('#navigation', new WhichBus.Views.Plan
         from: from
         to: to
       ).render()
+      WhichBus.Map.resize()
 
 
 
