@@ -26,14 +26,14 @@
 
 // Base CSS
 @import "compass_twitter_bootstrap/type";
-@import "compass_twitter_bootstrap/code";
+// @import "compass_twitter_bootstrap/code";
 @import "compass_twitter_bootstrap/forms";
-@import "compass_twitter_bootstrap/tables";
+// @import "compass_twitter_bootstrap/tables";
 
 // Components: common
 @import "compass_twitter_bootstrap/font-awesome";
 @import "compass_twitter_bootstrap/dropdowns";
-@import "compass_twitter_bootstrap/wells";
+// @import "compass_twitter_bootstrap/wells";
 @import "compass_twitter_bootstrap/component-animations";
 @import "compass_twitter_bootstrap/close";
 
@@ -45,22 +45,22 @@
 // Components: Nav
 @import "compass_twitter_bootstrap/navs";
 @import "compass_twitter_bootstrap/navbar";
-@import "compass_twitter_bootstrap/breadcrumbs";
-@import "compass_twitter_bootstrap/pagination";
-@import "compass_twitter_bootstrap/pager";
+// @import "compass_twitter_bootstrap/breadcrumbs";
+// @import "compass_twitter_bootstrap/pagination";
+// @import "compass_twitter_bootstrap/pager";
 
 // Components: Popovers
 @import "compass_twitter_bootstrap/modals";
-@import "compass_twitter_bootstrap/tooltip";
-@import "compass_twitter_bootstrap/popovers";
+// @import "compass_twitter_bootstrap/tooltip";
+// @import "compass_twitter_bootstrap/popovers";
 
 // Components: Misc
-@import "compass_twitter_bootstrap/thumbnails";
+// @import "compass_twitter_bootstrap/thumbnails";
 @import "compass_twitter_bootstrap/labels-badges";
 @import "compass_twitter_bootstrap/progress-bars";
 @import "compass_twitter_bootstrap/accordion";
-@import "compass_twitter_bootstrap/carousel";
-@import "compass_twitter_bootstrap/hero-unit";
+// @import "compass_twitter_bootstrap/carousel";
+// @import "compass_twitter_bootstrap/hero-unit";
 
 // Utility classes
 @import "compass_twitter_bootstrap/utilities"; // Has to be last to override when necessary
