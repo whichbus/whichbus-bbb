@@ -34,11 +34,11 @@ define ['whichbus', 'geocode', 'models/itinerary'], (WhichBus, Geocode) ->
 			# store geocode results in *Place so OTP won't overwrite them.
 			# use silent sets to prevent refreshes.
 			Geocode.lookup 
-				query: @get('from'), 
+				query: @get('from')
 				success: (result) =>
 					@set 'fromPlace', result, silent: true
 					Geocode.lookup 
-						query: @get('to'), 
+						query: @get('to')
 						success: (result) =>
 							@set 'toPlace', result, silent: true
 							callback()
@@ -50,15 +50,18 @@ define ['whichbus', 'geocode', 'models/itinerary'], (WhichBus, Geocode) ->
 			if method == 'read'
 				# first find from and to locations
 				@resolveLocations =>
-					$.getJSON @url(), @request(), (response) =>
+					# ensure that from and to were geolocated, otherwise throw GEOCODE error
+					unless @get('fromPlace') and @get('toPlace')
+						return @trigger 'error', @, {id: 'GEOCODE', msg: WhichBus.Constants.Messages.AddressError}
+					xhr = $.getJSON @url(), @request(), (response) =>
 						clearTimeout @time
 						# OTP returns status 200 for everything, so handle response manually
 						if response.error?
-							@trigger 'error'
-							options.error response, response.error.msg
+							@trigger 'error', @, response.error, options
 						else
-							@trigger 'sync' 
+							@trigger 'sync', model, response, options
 							options.success model, response
+					@trigger 'request', model, xhr, options
 					@time = setTimeout (=> @trigger('plan:timeout')), 7000
 			else
 				@trigger 'error' 

@@ -147,6 +147,10 @@
     }
   }
 
+  // hide progress bar when itineraries list is non-empty
+  .progress { display: none; }
+  #itineraries:empty + .progress { display: block; }
+
   .itinerary {
     &:first-child {
       border-top: none;
@@ -190,6 +194,11 @@
   .alert {
     margin: $sidebar_margin;
     strong { display:block; }
+
+    h4 { 
+      text-align: center;
+      padding-bottom: 10px;
+    }
   }
   .alert:not(.show) { display: none; }
 

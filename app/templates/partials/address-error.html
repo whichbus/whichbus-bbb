@@ -1,0 +1,14 @@
+<h4><%= title %></h4>
+<p><%= error.msg %></p>
+<form class="update">
+	<% if (!hasFrom) { %>
+	<input class="location" type="text" placeholder="Where ya at?" id="fromQuery" name="from" onfocus="this.select()" autocomplete="on" autofocus>
+	<% } if (!hasTo) { %>
+	<input class="location" type="text" placeholder="Where ya headed?" id="toQuery" name="to" onfocus="this.select()" autocomplete="on" autofocus>
+	<% } %>
+
+	<button class="btn btn-update" type="submit">
+		<% if (hasFrom && hasTo) { %>Try again, from the top
+		<% } else { %> Update that bus! <% } %>
+	</button>
+</form>

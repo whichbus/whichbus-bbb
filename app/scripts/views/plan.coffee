@@ -1,4 +1,4 @@
-define ['whichbus', 'models/plan', 'views/itinerary'], (WhichBus) ->
+define ['whichbus', 'models/plan', 'views/itinerary', 'views/plan-error'], (WhichBus) ->
 	class WhichBus.Views.Plan extends Backbone.View
 		template: 'plan'
 
@@ -25,7 +25,8 @@ define ['whichbus', 'models/plan', 'views/itinerary'], (WhichBus) ->
 			# create a plan model
 			@model = WhichBus.plan = new WhichBus.Models.Plan from: from, to: to
 			# render when the plan's attributes change
-			@model.on 'change', @render, @
+			@model.on 'change request', @render, @
+			@model.on 'error',  @error, @
 			# and get it loading. this will geocode from/to and hit OTP.
 			# finally it'll trigger the change event and we can re-render.
 			@model.fetch()
@@ -45,6 +46,7 @@ define ['whichbus', 'models/plan', 'views/itinerary'], (WhichBus) ->
 			WhichBus.Map.moveMarker @start, @model.get('from'), true
 			WhichBus.Map.moveMarker @end, @model.get('to'), true
 
+			@errorView?.remove()
 			@model.get('itineraries')?.each (item) =>
 				@insertView '#itineraries', new WhichBus.Views.Itinerary(model: item)
 
@@ -62,3 +64,10 @@ define ['whichbus', 'models/plan', 'views/itinerary'], (WhichBus) ->
 		dragEnd:   (mouse) -> 
 			# Backbone.history.navigate "plan/#{@model.get('from').coordStr()}/#{mouse.latLng.coordStr()}"
 			@reloadPlan @start.getPosition(), mouse.latLng
+
+		error: (model, error, options) ->
+			@errorView = new WhichBus.Views.PlanError
+				model: @model
+				error: error
+			@errorView.render()
+			@setView '#itineraries', @errorView

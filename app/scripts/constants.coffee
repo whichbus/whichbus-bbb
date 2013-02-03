@@ -18,3 +18,6 @@ define ->
 		WALK: 'black'
 		TRAM: '#1693a5'
 		FERRY: '#f02311'
+
+	Messages:
+		AddressError: 'The address or business you entered could not be understood. Please try again.'
