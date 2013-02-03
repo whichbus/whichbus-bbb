@@ -49,7 +49,6 @@ define ['whichbus', 'models/plan', 'views/itinerary'], (WhichBus) ->
 				@insertView '#itineraries', new WhichBus.Views.Itinerary(model: item)
 
 		afterRender: ->
-			$('#title h3').html("#{@options.from} to #{@options.to}")
 			# expand first itinerary
 			@$('#itineraries header:first').click()
 

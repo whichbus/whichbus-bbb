@@ -1,11 +1,11 @@
 <header class="teal" id="title">
-	<i class="icon-affordance icon-reply"></i></span>
+	<i class="icon-affordance icon-reply"></i>
 	<div>
 		<% if(fromPlace && fromPlace.name) { %>
 		<strong><%= fromPlace.name %></strong> <%= fromPlace.vicinity %><br/>
 		<strong><%= toPlace.name %></strong> <%= toPlace.vicinity %>
 		<% } else { %>
-		<%= from.name %><br/><%= to.name %>
+		<%= from.name || 'Resolving locations...' %><br/><%= to.name || 'Getting directions...' %>
 		<% } %>
 	    <a class="icon popout" id="options" title="customize journey">
 	        <i class="icon-reorder icon-affordance right"></i>

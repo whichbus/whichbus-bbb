@@ -20,8 +20,8 @@ define ['whichbus', 'models/segment', 'views/realtime'], (WhichBus) ->
 
 		beforeRender: ->
 			# create map elements
-			@line = WhichBus.Map.polyline @model.legGeometry.points, WhichBus.Constants.SegmentColors[@model.mode]
 			@marker = WhichBus.Map.marker true, @model.mode, @model.from, WhichBus.Constants.Markers.StopDot
+			@line = WhichBus.Map.polyline @model.legGeometry.points, WhichBus.Constants.SegmentColors[@model.mode]
 			WhichBus.Map.addLayer @line
 
 			if @realtime? then @setView '.timing', @realtime
