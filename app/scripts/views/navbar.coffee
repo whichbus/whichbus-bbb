@@ -1,4 +1,4 @@
-define ['whichbus', 'views/popout', 'bootstrap/bootstrap-dropdown'], (WhichBus, PopoutView) ->
+define ['whichbus', 'bootstrap/bootstrap-dropdown'], (WhichBus, PopoutView) ->
 	WhichBus.Views.Navbar = Backbone.View.extend
 		template: 'navbar'
 
