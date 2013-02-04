@@ -11,7 +11,7 @@
   @include box-shadow(0 0 3px 1px rgba(0,0,0,0.15));
   @include border-radius(10px);
   border: 1px solid #adaca1;
-  background: image-url("background/directions.png") repeat #cdcabf;
+  background: url("../images/background/directions.png") repeat #cdcabf;
 
   h2 {
     font-weight: normal;

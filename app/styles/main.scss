@@ -41,7 +41,7 @@ $settings_menu_width: 230px;
 @import 'navigation';
 
 body {
-	background: image-url("background/background-stripes.png") repeat #dcdcd7;
+	background: url("../images/background/background-stripes.png") repeat #dcdcd7;
 }
 
 a:not(.btn):not(.close):hover {

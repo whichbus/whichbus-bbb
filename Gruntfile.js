@@ -104,7 +104,8 @@ module.exports = function( grunt ) {
         browser: true
       },
       globals: {
-        jQuery: true
+        jQuery: true,
+        Backbone: true
       }
     },
 
@@ -172,7 +173,7 @@ module.exports = function( grunt ) {
       optimize: 'none',
       baseUrl: './scripts',
       wrap: true,
-      name: 'main'
+      name: 'config'
     },
 
     // While Yeoman handles concat/min when using
