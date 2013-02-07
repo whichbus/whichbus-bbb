@@ -1,5 +1,5 @@
 # Libraries & Plugins
-define ["jquery", "lodash", "backbone", "libs/backbone.layoutmanager", "format", "Constants"], ($, _, Backbone, Geocode, Format, Constants) ->
+define ["format", "Constants", 'helpers'], (Format, Constants) ->
   # Provide a global location to place configuration settings and module creation.
   app = 
     # The root path to run the application.
@@ -21,16 +21,10 @@ define ["jquery", "lodash", "backbone", "libs/backbone.layoutmanager", "format",
   Backbone.Layout.configure
     manage: true
 
-    prefix: 'templates/'
-
+    # wow fetch is easy with Handlebars--just grab the requested template from JST.
+    # they're all precompiled so it either exists or it doesn't.
     fetch: (path) ->
-      path = path + ".html"
-      unless JST[path]
-        $.ajax(
-          url: app.root + path
-          async: false
-        ).then (contents) ->
-          JST[path] = _.template(contents)
+      console.error "unknown template #{path}" unless JST[path]
       JST[path]
   
   # Mix Backbone.Events, modules, and layout management into the app object.

@@ -43,6 +43,25 @@ module.exports = function( grunt ) {
       }
     },
 
+    // compile .hjs to Handlebars templates
+    handlebars: {
+      compile: {
+        files: {
+          "temp/scripts/compiled-templates.js": ["app/templates/**/*.hjs", "app/templates/**/*.html"] 
+        },
+        options: {
+          wrapped: true,
+          namespace: 'JST',
+          processName: function(filename) {
+            // funky name processing here
+            return filename
+                    .replace(/^app\/templates\//, '')
+                    .replace(/\.hjs|\.html$/, '');
+          }
+        }
+      }
+    },
+
     // generate application cache manifest
     manifest:{
       dest: ''
@@ -65,6 +84,13 @@ module.exports = function( grunt ) {
         ],
         tasks: 'compass reload'
       },
+      handlebars: {
+        files: [
+          'app/templates/**/*.html',
+          'app/templates/**/*.hjs'
+        ],
+        tasks: 'handlebars reload'
+      },
       reload: {
         files: [
           'app/*.html',
@@ -76,6 +102,11 @@ module.exports = function( grunt ) {
         tasks: 'reload'
       }
     },
+
+    // configure server command to include handlebars
+    // server: {
+    //   app: 'clean lint compile open-browser watch'
+    // },
 
     // default lint configuration, change this to match your setup:
     // https://github.com/cowboy/grunt/blob/master/docs/task_lint.md#lint-built-in-task
@@ -190,4 +221,11 @@ module.exports = function( grunt ) {
   // Alias the `test` task to run the `mocha` task instead
   grunt.registerTask('test', 'server:phantom mocha');
 
+  // Handlebars for template compilation
+  // don't forget to install as devDependency: npm install -D grunt-contrib-handlebars
+  grunt.loadNpmTasks('grunt-contrib-handlebars');
+
+  // compile handlebars immediately after clean so it appears in standard server and build tasks
+  grunt.renameTask('clean', 'original-clean');
+  grunt.registerTask('clean', 'original-clean handlebars');
 };
