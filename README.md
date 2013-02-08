@@ -16,3 +16,10 @@ This is a new WhichBus, a lean, seafoam green, trip-planning machine. It's built
 * **[Require.js](http://requirejs.org/)** for brilliant module loading
 * **[Twitter Bootstrap](http://twitter.github.com/bootstrap/)** so we don't have to write all that CSS
 * **[Yeoman](http://yeoman.io)** as an excellent build environment and server
+
+## Installation
+1. Install [Yeoman](http://yeoman.io)
+2. Clone repository
+3. `npm link` to install dependencies
+4. `yeoman server` to launch in browser
+5. `yeoman build` to compile and compress
