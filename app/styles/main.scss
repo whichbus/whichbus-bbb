@@ -27,7 +27,7 @@ $linkColorHover: darken($wbBlue, 5%);
 
 $navbar_height: 40px;
 $nav_height_base: $navbar_height;
-$title_height: 30px;
+$title_height: 55px;
 $sidebar_width: 400px;
 $sidebar_margin: 12px;
 $map_height_phone: 150px;
@@ -228,36 +228,8 @@ a.icon:hover, a.icon.active {
 }
 
 ////////
-/* MAIN LAYOUT COMPONENTS: #TITLE, #MAP, #NAVIGATION */
+/* MAIN LAYOUT COMPONENTS: #MAP, #NAVIGATION */
 ////////
-
-#title {
-	min-width: 320px;
-	@include box-shadow(0 0 4px rgba(0,0,0,0.25));
-	z-index: 1;
-
-	div {
-		text-transform: none;
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
-		font-size: 14px;
-		line-height: 22px;
-		padding: 3px 5px 3px 15px;
-		position: relative;
-		text-indent: -5px;
-	}
-
-	.icon-reply {
-		left: 5px;
-		@include rotate(-135deg);
-	}
-
-	@media #{$desktop} {
-		width: $sidebar_width;
-		margin-top: $navbar_height;
-	}
-}
 
 #text-logo {
 	font-family: 'Pacifico', sans-serif;
