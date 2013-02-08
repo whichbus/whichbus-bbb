@@ -1,0 +1,11 @@
+<header class="gray">
+	<i class="icon-affordance icon-chevron-right"></i>
+	<h4>
+		<span class="summary">{{itinerarySummary legs}}</span>
+		{{formatTime startTime}} ({{formatDuration duration}})<br/>
+		<small>
+			{{fmtDuration walkTime}} walking, {{fmtDuration transitTime}} transit
+		</small>
+	</h4>
+</header>
+<ol class="segments" id="trip"></ol>

@@ -10,10 +10,7 @@ define ['whichbus', 'models/itinerary', 'views/segment'], (WhichBus) ->
 
 		initialize: ->
 
-		serialize: -> 
-			summary: @model.summaryHTML()
-			timing: @model.timing()
-			duration: @model.duration()
+		serialize: -> @model.attributes
 
 		beforeRender: ->
 			# add a view for each segment. Views.Segment handles polylines and markers

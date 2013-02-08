@@ -22,9 +22,10 @@ define ['whichbus', 'models/arrival'], (WhichBus) ->
 			@$el.addClass @model.deltaClass()
 
 		serialize: -> 
+			# @model.attributes
 			# accepts option of scheduled time from OTP leg.
 			# use this if model has not fetched yet.
-			time:  @model.arrivalTime() or @options.scheduled
+			arrival:  @model.arrivalTime() or @options.scheduled
 			delta: @model.readableDelta()
 			labelClass: @model.deltaClass()
 

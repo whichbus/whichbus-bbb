@@ -1,0 +1,9 @@
+<span class="timing"></span>
+<span class="action">
+	<a class="btn btn-small btn-route" href="#routes/{{agencyId}}/{{route}}">{{route}}</a> to
+		<a class="btn btn-stop" href="#stops/{{to.stopId.agencyId}}/{{to.stopId.id}}">{{to.name}}
+		</a>
+</span>
+<span class="details">
+	<i class="icon-arrow-right"></i>Ride for {{intermediateStops.length}} stops ({{formatDuration duration}})
+</span>

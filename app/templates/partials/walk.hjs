@@ -1,0 +1,4 @@
+<span class="timing">
+	<span class="duration label">{{formatTime startTime}}</span>
+</span>
+Walk to <a class="btn btn-stop" {{#if to.stopId }}"href='/stops/{{to.stopId.agencyId}}/{{to.stopId.id}}'"{{/if}}>{{to.name}}</a>

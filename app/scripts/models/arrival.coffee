@@ -16,12 +16,12 @@ define ['whichbus'], (WhichBus) ->
 
 		# return predicted time if available, or scheduled if fetch request finished
 		arrivalTime: ->
-			if @isPrediction() then WhichBus.format_time @get('predictedArrivalTime')
-			else if @isLoaded() then WhichBus.format_time @get('scheduledArrivalTime')
+			if @isPrediction() then @get('predictedArrivalTime')
+			else if @isLoaded() then @get('scheduledArrivalTime')
 
 		departureTime: ->
-			if @isPrediction() then WhichBus.format_time @get('predictedDepartureTime')
-			else if @isLoaded() then WhichBus.format_time @get('scheduledDepartureTime')
+			if @isPrediction() then @get('predictedDepartureTime')
+			else if @isLoaded() then @get('scheduledDepartureTime')
 		# difference between scheduled and predicted in minutes or empty string
 		deltaMinutes: ->
 			predicted = @get('predictedArrivalTime')
