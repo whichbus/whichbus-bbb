@@ -17,3 +17,10 @@ define ->
 		).join(' ')
 		stops = "#{stops} <span class='btn btn-route expand'>+#{index-2}</span>" if index > 2
 		new Handlebars.SafeString stops
+
+
+	Handlebars.registerPartial 'copyright', ->
+		JST['partials/copyright']()
+
+	Handlebars.registerPartial 'social_media', ->
+		JST['partials/social_media']()

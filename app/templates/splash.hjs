@@ -25,3 +25,6 @@
 		</form>
 	</div>
 </div>
+<div id="splash-footer">
+{{> copyright}} {{> social_media}}
+</div>

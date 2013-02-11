@@ -285,7 +285,7 @@ a.icon:hover, a.icon.active {
 		@include shadow-black(0.15);
 	}
 }
-#splash-footer > .social-media {
+#splash-footer .social-media {
 
 	a{
 
@@ -309,19 +309,19 @@ a.icon:hover, a.icon.active {
 	}
 
 	.tumblr-icon{
-		background:url('/assets/tumblr.png') no-repeat;
+		background:url('/images/tumblr.png') no-repeat;
 	}
 	.twitter-icon{
-		background:url('/assets/twitter.png') no-repeat;
+		background:url('/images/twitter.png') no-repeat;
 	}
 	.facebook-icon{
-		background:url('/assets/facebook.png') no-repeat;
+		background:url('/images/facebook.png') no-repeat;
 	}
 	.email-icon{
-		background:url('/assets/email.png') no-repeat;
+		background:url('/images/email.png') no-repeat;
 	}
 }
-#plan-footer > .social-media {
+#plan-footer .social-media {
 
 	a{
 
@@ -345,24 +345,21 @@ a.icon:hover, a.icon.active {
 	}
 
 	.tumblr-icon{
-		background:url('/assets/tumblr.png') no-repeat;
+		background:url('/images/tumblr.png') no-repeat;
 	}
 	.twitter-icon{
-		background:url('/assets/twitter.png') no-repeat;
+		background:url('/images/twitter.png') no-repeat;
 	}
 	.facebook-icon{
-		background:url('/assets/facebook.png') no-repeat;
+		background:url('/images/facebook.png') no-repeat;
 	}
 	.email-icon{
-		background:url('/assets/email.png') no-repeat;
+		background:url('/images/email.png') no-repeat;
 	}
 }
 
-#splash-footer, #plan-footer > .copyright {
-	display:inline;
-}
 
-#splash-footer, #plan-footer{
+#splash-footer{
 	display:inline;
 }
 
@@ -394,22 +391,28 @@ a.icon:hover, a.icon.active {
 }
 
 #plan-footer{
+
+	.copyright, .social-media{
+		margin-left:auto;
+		margin-right:auto;
+	}
+
 	.copyright {
-		float:left;
+		width:250px;
 		padding: 12px 0 5px 5px;
 		font-size: 11px;
 		text-align: center;
-		margin-left:5px;
+
 		.copy {
 			font-size: 12px;
 		}
 	}
 
 	.social-media {
-		float:right;
+		width:160px;
+
 		padding: 10px 0 5px 5px;
 		text-align: center;
-		margin-right:10px;
 
 		a {
 			margin-right:8px;
