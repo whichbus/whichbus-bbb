@@ -6,6 +6,7 @@ define ['whichbus', 'views/index', 'views/navbar', 'views/map', 'views/plan', 'v
       '?:params': 'index'
       'plan/:from/:to': 'plan'
       'plan/:from/:to?:params': 'plan'
+      'go/:to': 'goto'
       'about' : 'about'
       '*splat': 'indexRedirect'
 
@@ -28,6 +29,9 @@ define ['whichbus', 'views/index', 'views/navbar', 'views/map', 'views/plan', 'v
         to: to
       ).render()
       WhichBus.Map.resize()
+
+    goto: (to) ->
+      Backbone.history.navigate "plan/here/#{to}", true
 
     about: ->
       WhichBus.layout.setView('#navigation', new WhichBus.Views.About()).render()
