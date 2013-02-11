@@ -1,5 +1,5 @@
 # Libraries & Plugins
-define ["format", "Constants", 'helpers'], (Format, Constants) ->
+define ["format", "constants", 'helpers'], (Format, Constants) ->
   # Provide a global location to place configuration settings and module creation.
   app = 
     # The root path to run the application.

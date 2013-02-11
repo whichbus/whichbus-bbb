@@ -7,11 +7,16 @@ define ['whichbus', 'views/index', 'views/navbar', 'views/map', 'views/plan', 'v
       'plan/:from/:to': 'plan'
       'plan/:from/:to?:params': 'plan'
       'about' : 'about'
+      '*splat': 'indexRedirect'
 
     initialize: ->
       WhichBus.useLayout 'index'
       WhichBus.layout.setView('#navbar', new WhichBus.Views.Navbar()).render()
       WhichBus.layout.setView('#map', WhichBus.Map = new WhichBus.Views.GoogleMap()).render()
+
+    # if the user types nonsense, send them home!
+    indexRedirect: ->
+      Backbone.history.navigate '', true
 
     index: ->
       WhichBus.layout.setView('#navigation', new WhichBus.Views.Index()).render()

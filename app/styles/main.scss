@@ -790,6 +790,7 @@ div.popout {
 	#map, #title { display: none}
 	// the form is actually in #navigation so make that div fullscreen
 	#navigation {
+		position: relative;
 		width: auto;
 		@extend .container-fluid;
 		margin: 50px auto 20px;

@@ -103,11 +103,6 @@ module.exports = function( grunt ) {
       }
     },
 
-    // configure server command to include handlebars
-    // server: {
-    //   app: 'clean lint compile open-browser watch'
-    // },
-
     // default lint configuration, change this to match your setup:
     // https://github.com/cowboy/grunt/blob/master/docs/task_lint.md#lint-built-in-task
     lint: {
@@ -179,7 +174,8 @@ module.exports = function( grunt ) {
     // update references in HTML/CSS to revved files
     usemin: {
       html: ['**/*.html'],
-      css: ['**/*.css']
+      css: ['**/*.css'],
+      js: ['**/*.js']
     },
 
     // HTML minification
