@@ -162,7 +162,7 @@ module.exports = function( grunt ) {
     rev: {
       js: 'scripts/**/*.js',
       css: 'styles/**/*.css',
-      img: 'images/**'
+      img: ['images/**', '!images/icons/**']
     },
 
     // usemin handler should point to the file containing
@@ -173,9 +173,8 @@ module.exports = function( grunt ) {
 
     // update references in HTML/CSS to revved files
     usemin: {
-      html: ['**/*.html'],
-      css: ['**/*.css'],
-      js: ['**/*.js']
+      html: ['**/*.html', '**/*.js'],
+      css: ['**/*.css']
     },
 
     // HTML minification
@@ -185,7 +184,7 @@ module.exports = function( grunt ) {
 
     // Optimizes JPGs and PNGs (with jpegtran & optipng)
     img: {
-      dist: '<config:rev.img>'
+      dist: 'images/**'
     },
 
     // rjs configuration. You don't necessarily need to specify the typical
