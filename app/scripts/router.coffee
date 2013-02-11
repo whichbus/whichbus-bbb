@@ -6,7 +6,7 @@ define ['whichbus', 'views/index', 'views/navbar', 'views/map', 'views/plan', 'v
       '?:params': 'index'
       'plan/:from/:to': 'plan'
       'plan/:from/:to?:params': 'plan'
-      'go/:to': 'goto'
+      'to/:to': 'goto'
       'about' : 'about'
       '*splat': 'indexRedirect'
 
