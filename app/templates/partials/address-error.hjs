@@ -9,7 +9,7 @@
 	{{/unless}}
 
 	<button class="btn btn-update" type="submit">
-		{{#if hasFrom and hasTo }}Try again, from the top
+		{{#if restart}}Try again, from the top
 		{{else}} Update that bus! {{/if}}
 	</button>
 </form>

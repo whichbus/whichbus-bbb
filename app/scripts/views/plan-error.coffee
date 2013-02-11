@@ -11,10 +11,14 @@ define ['whichbus'], (WhichBus) ->
 			@error = @options.error or {}
 
 		serialize: -> 
+			from = @model.get('fromPlace')?
+			to = @model.get('toPlace')?
+
 			title: 'Address Error!'
 			error: @error
-			hasFrom: @model.get('fromPlace')?
-			hasTo: @model.get('toPlace')?
+			hasFrom: from
+			hasTo: to
+			restart: from and to
 
 		updatePlan: (evt) ->
 			evt.preventDefault()
