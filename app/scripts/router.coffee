@@ -1,4 +1,4 @@
-define ['whichbus', 'views/index', 'views/navbar', 'views/map', 'views/plan'], (WhichBus) ->  
+define ['whichbus', 'views/index', 'views/navbar', 'views/map', 'views/plan', 'views/about'], (WhichBus) ->
   # Defining the application router, you can attach sub routers here.
   Router = Backbone.Router.extend
     routes:
@@ -6,6 +6,7 @@ define ['whichbus', 'views/index', 'views/navbar', 'views/map', 'views/plan'], (
       '?:params': 'index'
       'plan/:from/:to': 'plan'
       'plan/:from/:to?:params': 'plan'
+      'about' : 'about'
 
     initialize: ->
       WhichBus.useLayout 'index'
@@ -23,7 +24,11 @@ define ['whichbus', 'views/index', 'views/navbar', 'views/map', 'views/plan'], (
       ).render()
       WhichBus.Map.resize()
 
+    about: ->
+      WhichBus.layout.setView('#navigation', new WhichBus.Views.About()).render()
+      WhichBus.Map.resize()
 
 
-  
+
+
 
