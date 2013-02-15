@@ -1,4 +1,4 @@
-define ['whichbus', 'geocode'], (WhichBus, Geocode) ->
+define ['whichbus'], (WhichBus) ->
 	class WhichBus.Models.Itinerary extends Backbone.Model
 
 		initialize: ->

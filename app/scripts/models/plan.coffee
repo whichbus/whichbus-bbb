@@ -1,4 +1,4 @@
-define ['whichbus', 'geocode', 'models/itinerary'], (WhichBus, Geocode) ->
+define ['whichbus', 'geocode-promise', 'models/itinerary'], (WhichBus, Geocode) ->
 	class WhichBus.Models.Plan extends Backbone.Model
 		urlRoot: WhichBus.otp + 'plan'
 
@@ -29,30 +29,18 @@ define ['whichbus', 'geocode', 'models/itinerary'], (WhichBus, Geocode) ->
 			to: plan.to
 			itineraries: itineraries
 
-		# geocode from and to locations before syncing
-		resolveLocations: (callback) ->
-			# store geocode results in *Place so OTP won't overwrite them.
-			# use silent sets to prevent refreshes.
-			Geocode.lookup 
-				query: @get('from')
-				success: (result) =>
-					@set 'fromPlace', result, silent: true
-					Geocode.lookup 
-						query: @get('to')
-						success: (result) =>
-							@set 'toPlace', result, silent: true
-							callback()
-						
 		# overloading sync so we can do some fanciness
 		# TODO event parameters
 		sync: (method, model, options) ->
 			@trigger 'request'
 			if method == 'read'
-				# first find from and to locations
-				@resolveLocations =>
-					# ensure that from and to were geolocated, otherwise throw GEOCODE error
-					unless @get('fromPlace') and @get('toPlace')
-						return @trigger 'error', @, {id: 'GEOCODE', msg: WhichBus.Constants.Messages.AddressError}
+				# first find from and to locations...
+				finding = $.when Geocode.lookup(@get('from')), Geocode.lookup(@get('to'))
+				# if both succeed then perform the OTP request...
+				finding.done (from, to) =>
+					# store geocode results in *Place so OTP won't overwrite them.
+					# use silent set to prevent immediate refresh.
+					@set { fromPlace: from, toPlace: to }, silent: true
 					xhr = $.getJSON @url(), @request(), (response) =>
 						clearTimeout @time
 						# OTP returns status 200 for everything, so handle response manually
@@ -63,8 +51,11 @@ define ['whichbus', 'geocode', 'models/itinerary'], (WhichBus, Geocode) ->
 							options.success model, response
 					@trigger 'request', model, xhr, options
 					@time = setTimeout (=> @trigger('plan:timeout')), 7000
+				# if either fail then trigger the error event and let views takeover...
+				finding.fail (error, query) => 
+					@trigger 'error', @, error, query
 			else
-				@trigger 'error' 
+				@trigger 'error', @, message: 'Plan is read-only'
 				options.error 'Plan is read-only.'
 
 		# create the request params from the models, needs some preprocessing
@@ -80,6 +71,7 @@ define ['whichbus', 'geocode', 'models/itinerary'], (WhichBus, Geocode) ->
 
 		# form nice lat,lng string regardless of position format (object or G.LatLng)
 		positionString: (position) ->
+			return '' unless position
 			if _.isFunction position.lat
 				"#{position.lat()},#{position.lng()}"
 			else

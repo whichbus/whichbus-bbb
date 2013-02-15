@@ -1,5 +1,5 @@
 <h4>{{ title }}</h4>
-<p>{{ error.msg }}</p>
+<p>{{ error.message }}</p>
 <form class="update">
 	{{#unless hasFrom }}
 	<input class="location" type="text" placeholder="Where ya at?" id="fromQuery" name="from" onfocus="this.select()" autocomplete="on" autofocus>

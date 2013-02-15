@@ -11,8 +11,8 @@ define ['whichbus'], (WhichBus) ->
 			@error = @options.error or {}
 
 		serialize: -> 
-			from = @model.get('fromPlace')?
-			to = @model.get('toPlace')?
+			from = @model.get('from') isnt @options.query
+			to = @model.get('to') isnt @options.query
 
 			title: 'Address Error!'
 			error: @error

@@ -65,9 +65,10 @@ define ['whichbus', 'models/plan', 'views/itinerary', 'views/plan-error'], (Whic
 			# Backbone.history.navigate "plan/#{@model.get('from').coordStr()}/#{mouse.latLng.coordStr()}"
 			@reloadPlan @start.getPosition(), mouse.latLng
 
-		error: (model, error, options) ->
+		error: (model, error, query) ->
 			@errorView = new WhichBus.Views.PlanError
 				model: @model
 				error: error
+				query: query
 			@errorView.render()
 			@setView '#itineraries', @errorView

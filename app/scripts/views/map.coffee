@@ -1,4 +1,4 @@
-define ['lodash', 'whichbus', 'geocode'], (_, WhichBus, Geocode) ->
+define ['lodash', 'whichbus', 'geocode-promise'], (_, WhichBus, Geocode) ->
 	G = google.maps
 
 	# convenience methods for translating G.LatLng into other useful types
@@ -20,7 +20,6 @@ define ['lodash', 'whichbus', 'geocode'], (_, WhichBus, Geocode) ->
 					style: G.ZoomControlStyle.DEFAULT
 			@map = new G.Map(@el, mapOptions)
 			Geocode.initialize @map
-
 			@markerDefaults =
 				clickable: false
 				draggable: false
