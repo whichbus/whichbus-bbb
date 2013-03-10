@@ -237,6 +237,7 @@ a.icon:hover, a.icon.active {
 	line-height: $navbar_height;
 	@include shadow-black(0.25);
 	opacity: 0.99;
+	-webkit-font-smoothing: antialiased;
 }
 #text-logo:hover {
 	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
@@ -246,6 +247,7 @@ a.icon:hover, a.icon.active {
 	font-family: 'Pacifico', sans-serif;
 	line-height: 2rem;
 	font-weight: normal;
+	-webkit-font-smoothing: antialiased;
 }
 
 // #whichbus {
