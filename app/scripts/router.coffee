@@ -17,8 +17,8 @@ define ['whichbus', 'views/index', 'views/navbar', 'views/map', 'views/plan', 'v
 
     # one method for every page to call to make sure stuff is working
     setupPage: ->
-      WhichBus.Map.resize()
       @navbar.render()
+      WhichBus.Map.resize()
 
     # if the user types nonsense, send them home!
     indexRedirect: ->

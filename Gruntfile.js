@@ -44,6 +44,7 @@ module.exports = function( grunt ) {
     },
 
     // compile .hjs to Handlebars templates
+    // don't forget: npm install -D grunt-contrib-handlebars
     handlebars: {
       compile: {
         files: {
