@@ -1,7 +1,12 @@
 <div class="navbar navbar-fixed-top unselectable">
 	<div class="navbar-inner">
 		<div class="whichbus-nav">
-			<div id="text-logo" class="block pull-left">
+			<div id="back" class="block pull-left {{#unless showBack}}hidden{{/unless}}">
+				<a href="#" class="icon" title="back">
+					<i class="icon-arrow-up-left"></i><label>Back</label>
+				</a>
+			</div>
+			<div id="text-logo" class="block">
 				<a href="#">WhichBus</a>
 			</div>
 			<div class="block pull-right">

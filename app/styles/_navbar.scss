@@ -6,19 +6,27 @@
 		color: white;
 
 		label { display: none; }
-
-
 	}
 	a:hover { color: #F5F5F2; }
 	// group of navbar items
 	.block {
 		line-height: 1.3em;
 		margin: 0 10px;
+		display: inline-block;
+		height: $navbar_height;
 		a + a { margin-left: 10px; }
+		&.hidden { visibility: hidden; }
 	}
 	// position block on left or right edge of screen
 	.block.right { @include stretch(0, 0, false, false); }
 	.block.left  { @include stretch(0, false, false, 0); }
+
+	// hide back button on desktop and left-align logotype
+	@media #{$desktop} {
+		#back { display: none; }
+		#text-logo { float: left; }
+	}
+
 	// style icons in navbar
 	.icon {
 		display: inline-block;

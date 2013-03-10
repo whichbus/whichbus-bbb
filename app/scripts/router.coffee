@@ -12,8 +12,13 @@ define ['whichbus', 'views/index', 'views/navbar', 'views/map', 'views/plan', 'v
 
     initialize: ->
       WhichBus.useLayout 'index'
-      WhichBus.layout.setView('#navbar', new WhichBus.Views.Navbar()).render()
+      WhichBus.layout.setView('#navbar', @navbar = new WhichBus.Views.Navbar()).render()
       WhichBus.layout.setView('#map', WhichBus.Map = new WhichBus.Views.GoogleMap()).render()
+
+    # one method for every page to call to make sure stuff is working
+    setupPage: ->
+      WhichBus.Map.resize()
+      @navbar.render()
 
     # if the user types nonsense, send them home!
     indexRedirect: ->
@@ -21,21 +26,21 @@ define ['whichbus', 'views/index', 'views/navbar', 'views/map', 'views/plan', 'v
 
     index: ->
       WhichBus.layout.setView('#navigation', new WhichBus.Views.Index()).render()
-      WhichBus.Map.resize()
+      @setupPage()
 
     plan: (from, to, params) ->
       WhichBus.layout.setView('#navigation', new WhichBus.Views.Plan
         from: from
         to: to
       ).render()
-      WhichBus.Map.resize()
+      @setupPage()
 
     goto: (to) ->
       Backbone.history.navigate "plan/here/#{to}", true
 
     about: ->
       WhichBus.layout.setView('#navigation', new WhichBus.Views.About()).render()
-      WhichBus.Map.resize()
+      @setupPage()
 
 
 
