@@ -15,6 +15,8 @@ module.exports = function (grunt) {
     // load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
+    console.log(require('matchdep').filterDev('grunt-*'))
+
     // configurable paths
     var yeomanConfig = {
         app: 'app',
@@ -31,6 +33,13 @@ module.exports = function (grunt) {
             coffeeTest: {
                 files: ['test/spec/{,*/}*.coffee'],
                 tasks: ['coffee:test']
+            },
+            handlebars: {
+                files: [
+                    'app/templates/**/*.html',
+                    'app/templates/**/*.hjs'
+                ],
+                tasks: 'handlebars reload'
             },
             compass: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
@@ -117,8 +126,8 @@ module.exports = function (grunt) {
                     // rather than compiling multiple files here you should
                     // require them into your main .coffee file
                     expand: true,
-                    cwd: '<%= yeoman.app %>/scripts/**',
-                    src: '*.coffee',
+                    cwd: '<%= yeoman.app %>/scripts',
+                    src: ['*.coffee', '**/*.coffee' ],
                     dest: '.tmp/scripts',
                     ext: '.js'
                 }]
@@ -131,6 +140,24 @@ module.exports = function (grunt) {
                     dest: 'test/spec'
                 }]
             }
+        },
+        // compile .hjs to Handlebars templates
+        handlebars: {
+          compile: {
+            files: {
+              ".tmp/scripts/compiled-templates.js": ["app/templates/**/*.hjs", "app/templates/**/*.html"]
+            },
+            options: {
+              wrapped: true,
+              namespace: 'JST',
+              processName: function(filename) {
+                // funky name processing here
+                return filename
+                        .replace(/^app\/templates\//, '')
+                        .replace(/\.hjs|\.html$/, '');
+              }
+            }
+          }
         },
         compass: {
             options: {
@@ -259,6 +286,7 @@ module.exports = function (grunt) {
             'clean:server',
             'coffee:dist',
             'compass:server',
+            'handlebars:compile',
             'livereload-start',
             'connect:livereload',
             'open',
@@ -294,4 +322,7 @@ module.exports = function (grunt) {
         'test',
         'build'
     ]);
+
+    grunt.renameTask('clean', 'original-clean');
+    grunt.registerTask('clean', 'original-clean handlebars');
 };
