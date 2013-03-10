@@ -1,0 +1,103 @@
+.whichbus-nav{
+	text-align: center;
+	a { 
+		font-size: 1.8em;
+		border: none !important; 
+		color: white;
+
+		label { display: none; }
+
+
+	}
+	a:hover { color: #F5F5F2; }
+	// group of navbar items
+	.block {
+		line-height: 1.3em;
+		margin: 0 10px;
+		a + a { margin-left: 10px; }
+	}
+	// position block on left or right edge of screen
+	.block.right { @include stretch(0, 0, false, false); }
+	.block.left  { @include stretch(0, false, false, 0); }
+	// style icons in navbar
+	.icon {
+		display: inline-block;
+		@include square(34px);
+		line-height: 34px;
+		cursor: pointer;
+		text-decoration: none;
+		vertical-align: middle;
+		@include shadow-black(0.25);
+		opacity: 0.99;
+		margin: 3px 0;
+	}
+	.icon:hover, .icon.open {
+		// invert border on hover or active
+		text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+	}
+	.icon.bus {
+		// whichbus font requires special sizing
+		width: auto;
+		font-size: 24px;
+		i { font-size: 22px; }
+		.phone { display: none; }
+		@media #{$phone} {
+			.desktop { display: none; }
+			.phone { display: inline; }
+		}
+	}
+
+	// style open dropdown buttons like dropdown menu
+	.open > a.dropdown {
+		background: white;
+		color: #999;
+		@include border-radius(6px 6px 0 0);
+		border: 1px solid #ccc;
+		border: 1px solid rgba(0, 0, 0, 0.2);
+		@include box-shadow(0 5px 10px rgba(0,0,0,0.2))
+
+	}
+
+	// special directions icon has two map markers slightly offset
+	#directions {
+		.icon-map-marker { 
+			position: relative;
+			font-size: 20px; 
+			left: 1px;
+		}
+		// move the first marker up and left a bit
+		.icon-map-marker:first-child {
+			top: -5px;
+			left: -1px;
+		}
+	}
+}
+
+
+// override bootstrap styles
+.dropdown-menu {
+	margin-top: -10px;
+
+	li {
+		a {
+			color: black;
+			padding: 8px 12px;
+			font-size: 1.2em;
+			line-height: 1.4em;
+			text-align: left;
+
+			i { padding-right: 5px; }
+		} 
+	}
+}
+
+.settings {
+	a {
+		color: #333;
+	}
+	i {
+		opacity: 0.99;
+	}
+}
+
+

@@ -1,0 +1,245 @@
+// requires absolute positioning for overflow scroll
+#navigation {
+  min-width: 320px;
+
+  @media #{$desktop} {
+    @include stretch($navbar_height, auto, 0, 0);
+    overflow: auto;
+    width: $sidebar_width;
+    @include box-shadow(0 0 4px rgba(0,0,0,0.25));
+  }
+
+  @media #{$tablet} {
+  }
+  @media #{$phone} {
+  }
+
+
+
+  #title {
+    min-width: 320px;
+    height: $title_height;
+    @include box-shadow(0 0 4px rgba(0,0,0,0.25));
+    z-index: 1;
+
+    @media #{$desktop} {
+      width: $sidebar_width;
+      position: fixed;
+    }
+
+    div {
+      text-transform: none;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      font-size: 14px;
+      line-height: 22px;
+      padding: 3px 5px 3px 15px;
+      position: relative;
+      text-indent: -5px;
+    }
+
+    .icon-reply {
+      left: 5px;
+      @include rotate(-135deg);
+    }
+  }
+
+  header {
+    text-transform: none;
+  }
+
+  header.options {
+    @include clearfix();
+    @include box-shadow(0 0 3px 1px rgba(0,0,0,0.15));
+    z-index: 10;
+  }
+  form.options {
+    display: none;
+    background-color: whiteSmoke;
+    margin: 0;
+    box-sizing: border-box;
+    fieldset {
+      padding: 10px;
+    }
+    div { margin-bottom: 8px; }
+    input {
+      box-sizing: border-box;
+      width: auto;
+      vertical-align: baseline;
+      @media #{$phone} { width: auto !important; }
+    }
+    input.date { @include size(30px, 88%) }
+    input.time { @include size(30px, 62%) }
+    label {
+      @media #{$phone} { width: 40% !important; }
+    }
+    .btn-group {
+      .btn {
+        width: 36px;
+        padding: 4px 0;
+      }
+    }
+    .time ~ .btn {
+      width: 30px;
+      padding: 4px 0;
+      @media #{$phone} { display: none; }
+    }
+  }
+
+  ol {
+    // z-index: -1;
+    li {
+      color: #565656;
+      border-top: 1px solid #565656 * 2;
+      border-bottom: 1px solid #ababab;
+      @include gradient-vertical(#e1e0e0, #d2d2d2)
+    }
+  }
+  ol.itineraries, ol.trips {
+    clear: both;
+    padding-top: $title_height;
+  }
+  ol.segments {
+    display: none;
+  }
+
+  .itineraries, .segments, .arrivals, .routes, .trips, .stops {
+    list-style: none;
+    margin: 0;
+    @include clearfix();
+  }
+  .stops > li { padding: $sidebar_margin;}
+
+  .route-list {
+    margin: 0;
+    list-style-type: none;
+    padding-left: $sidebar_margin;
+    padding-right: $sidebar_margin;
+    li {
+      display: inline-block;
+      margin: 5px 5px 0 0;
+    }
+  }
+
+  .routes {
+    padding-left: $sidebar_margin;
+    padding-right: $sidebar_margin;
+    li {
+      float: left;
+      margin: $sidebar_margin/2 $sidebar_margin/2 0 0;
+    }
+  }
+  .routes.collapse.in { padding-bottom: $sidebar_margin /2 }
+
+  .itinerary {
+    margin: 0;
+    border-bottom: 0;
+    overflow: auto;
+    h4 {
+      padding: 5px $sidebar_margin;
+      cursor: pointer;
+      small { color: lightgrey; }
+    }
+    .summary {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      margin-top: -14px;
+    }
+    .details {
+      font-style: italic;
+      margin-left: 10px;
+      line-height: 20px;
+      margin-top: 3px;
+      i {
+        color: #999;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+      }
+    }
+  }
+
+  .trip {
+    padding: 8px $sidebar_margin;
+  }
+
+  .segments { z-index: 0; }
+  .segment, .arrival {
+    @include clearfix();
+    padding: 5px $sidebar_margin;
+    // border-top: 1px dashed $tableBorder;
+  }
+
+  .progress-striped {
+    margin: $sidebar_margin;
+
+    .bar {
+      width: 100%;
+      @include gradient-striped(#86bdcf, -45deg);
+    }
+  }
+
+  // hide progress bar when itineraries list is non-empty
+  .progress { display: none; }
+  #itineraries:empty + .progress { display: block; }
+
+  .itinerary {
+    &:first-child {
+      border-top: none;
+    }
+
+    .segment {
+      border-top: 1px solid #f3f3f3;
+      line-height: 30px;
+    
+      &:last-child {
+        border-bottom: none;
+      }
+    
+      &:hover {
+        background-color: $tableBackgroundHover;
+      }
+    
+      & > span{
+        float: left;
+        vertical-align: middle;
+      }
+
+      .action {
+        text-align: right;
+        padding-right: 5px;
+      }
+    }
+  }
+
+  .timing {
+    text-align: right;
+    padding: 3px $sidebar_margin 5px 0;
+    text-align: center;
+
+    .label {
+      line-height: 1.5em;
+      display: inline-block;
+    }
+  }
+
+  .alert {
+    margin: $sidebar_margin;
+    strong { display:block; }
+
+    h4 { 
+      text-align: center;
+      padding-bottom: 10px;
+    }
+  }
+  .alert:not(.show) { display: none; }
+
+  .btn-update {
+    @extend .btn-go;
+    display: block;
+    margin: 10px auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-transform: uppercase;
+  }
+}

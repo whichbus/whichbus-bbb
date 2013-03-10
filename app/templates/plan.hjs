@@ -1,0 +1,21 @@
+<header class="teal" id="title">
+	<i class="icon-affordance icon-reply"></i>
+	<div>
+		{{#if fromPlace.name}}
+		<strong>{{fromPlace.name}}</strong> {{fromPlace.vicinity}}<br/>
+		<strong>{{toPlace.name}}</strong> {{toPlace.vicinity}}
+		{{else}}
+		{{from.name}}<br/>{{to.name}}
+		{{/if}}
+	    <a class="icon popout" id="options" title="customize journey">
+	        <i class="icon-reorder icon-affordance right"></i>
+	    </a>
+	</div>
+</header>
+
+<ol class="itineraries" id="itineraries"></ol>
+{{#if loading}}<div class="progress progress-striped active"><div class="bar"></div></div>{{/if}}
+<div class="alert alert-error"></div>
+<div id="plan-footer">
+	{{> copyright}} {{> social_media}}
+</div>

@@ -1,0 +1,803 @@
+/* Fonts */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,600,700|Pacifico);
+
+/* Media sizes */
+$desktop: '(min-width: 769px)';
+$phone: '(max-width: 480px)';
+$tablet: '(max-width: 768px)'; // '
+
+/* Here are our lovely colors: */
+$wbGreen: #bbefce;
+$wbGreenDark: #a1d0b1;
+$wbBlue: #93d2d0;
+$wbBlueDark: #679a98;
+$wbRed: #dc6a4c;
+$wbRedDark: #a7442a;
+
+/* Change Bootstrap variables before importing */
+$sansFontFamily: "Open Sans", sans-serif;
+$navbarBackground: $wbGreenDark;
+$navbarBackgroundHighlight: $wbGreen;
+
+$linkColor: $wbBlueDark;
+$linkColorHover: darken($wbBlue, 5%);
+
+@import "compass_twitter_bootstrap_awesome";
+
+
+$navbar_height: 40px;
+$nav_height_base: $navbar_height;
+$title_height: 55px;
+$sidebar_width: 400px;
+$sidebar_margin: 12px;
+$map_height_phone: 150px;
+$map_height_tablet: 260px;
+$borderRadius: 7px;
+$settings_menu_width: 230px;
+
+@import 'mixins';
+@import 'navbar';
+@import 'splash';
+@import 'navigation';
+
+body {
+	background: url("/images/background/background-stripes.png") repeat #dcdcd7;
+}
+
+a:not(.btn):not(.close):hover {
+	text-decoration: none;
+	border-bottom: 1px dotted;
+}
+
+input.location {
+	@include size(43px, 98%);
+	margin: 0px;
+	padding: 0px 1%;
+	font-size: 18px;
+	font-weight: 300;
+	line-height: 1.3em;
+	text-align: center;
+	@include box-shadow(0px 2px 8px 0px rgba(0, 0, 0, 0.15) inset);
+	@include placeholder(#94978C);
+}
+
+body > .container-fluid, #container {
+	@include stretch($navbar_height, 0, 0, 0);
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+}
+.container-fluid {
+	max-width: 900px;
+	margin: auto;
+}
+
+form { margin: 0; }
+
+// then comes the map. on desktop the map is absolute positioned to fill the area to the
+// right of the sidebar. on phone/tablet it fits neatly between title and navigation.
+#map > div {
+	a:hover {
+		border-bottom: none;
+	}
+	img {
+		max-width: none;
+	}
+
+	@media #{$desktop} {
+		// position: relative;
+		// margin-left: $sidebar_width;
+		// height: 100%;
+		position: absolute;
+		left: $sidebar_width;
+		top: $navbar_height;
+		right: 0;
+		bottom: 0;
+	}
+
+	@media #{$tablet} {
+		height: $map_height_tablet;
+	}
+
+	@media #{$phone} {
+		height: $map_height_phone;
+	}
+}
+
+
+/* HEADER STYLES */
+header {
+	// height: 100%;
+	position: relative;
+	padding: 0 $sidebar_margin;
+	text-transform: uppercase;
+	box-sizing: border-box;
+	@include shadow-black(0.25);
+	h1, h2, h3, h4, h5, h6 {
+		font-weight: 600;
+		line-height: auto;
+		margin: 0;
+	}
+	h2 { font-size: 24px; }
+	h3 { font-size: 18px; line-height: 30px; }
+	h4 { font-size: 14px; small { font-size: 12px;} }
+	[class^="icon-"], [class*=" icon-"] {
+		font-size: 18px;
+	}
+	.icon-affordance {
+		float: left;
+		font-size: 20px;
+		position: absolute;
+		top: 50%;
+		left: -1px;
+		margin-top: -10px;
+		@include transition(all 0.3s);
+
+		&.right {
+			left: auto;
+			right: 0;
+		}
+	}
+
+}
+.active .icon-affordance {
+	@include rotate(90deg);
+}
+
+header, .gradient, header:hover, .gradient:hover {
+	color: white;
+	@include shadow-black(0.25);
+}
+header.red, .gradient.red {
+	border-top: 1px solid #f48668;
+	border-bottom: 1px solid #762a16;
+	@include gradient-vertical(#dc6a4c, #a7442a);
+	background-color: #a7442a;
+}
+header.light-gray, .gradient.light-gray {
+	border-top: 1px solid;
+	border-bottom: 1px solid;
+	border-color: #d2d2d2;
+	@include gradient-vertical(#e1e0e0, #d2d2d2);
+	background-color: darken(#d2d2d2, 1%);
+}
+header.gray, .gradient.gray {
+	border-bottom: 1px solid;
+	border-color: #57564d;
+	@include gradient-vertical(#939285, #7a796e);
+	background-color: darken(#7a796e, 1%);
+}
+header.blue, .gradient.blue {
+	border-bottom: 1px solid;
+	border-color: #5e9b99;
+	@include gradient-vertical(#93d2d0, #679a98);
+	background-color: darken(#679a98, 1%);
+}
+header.teal, .gradient.teal {
+	$light: #93d2d0;
+	$dark: #679a98;
+	border-top: 1px solid lighten($light, 10%);
+	border-bottom: 1px solid darken($dark, 10%);
+	@include gradient-vertical($light, $dark);
+	background-color: darken($dark, 1%);
+}
+header.green, .gradient.green {
+	border-top: 1px solid $wbGreenDark;
+	border-bottom: 1px solid $wbGreenDark;
+	@include gradient-vertical($wbGreen, $wbGreenDark);
+	background-color: darken($wbGreenDark, 1%);
+}
+
+
+
+.cozy { padding: 10px 20px; }
+.compact { padding: 5px 10px; }
+
+.close {
+	width: 20px;
+	text-align: center;
+	line-height: inherit;
+	z-index: 2000;
+}
+
+.unselectable {
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+// style icons in navbar
+a.icon {
+	display: inline-block;
+	@include size(100%, 34px);
+	// line-height: 34px;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	vertical-align: baseline;
+	@include shadow-black(0.25);
+	opacity: 0.99;
+	color: white;
+	border: none !important;
+}
+a.icon:hover { color: #F5F5F2; }
+a.icon:hover, a.icon.active {
+	// invert border on hover or active
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+////////
+/* MAIN LAYOUT COMPONENTS: #MAP, #NAVIGATION */
+////////
+
+#text-logo {
+	font-family: 'Pacifico', sans-serif;
+	font-weight: normal;
+	line-height: $navbar_height;
+	@include shadow-black(0.25);
+	opacity: 0.99;
+}
+#text-logo:hover {
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+#splash h2, .pacifico {
+	font-family: 'Pacifico', sans-serif;
+	line-height: 2rem;
+	font-weight: normal;
+}
+
+// #whichbus {
+// 	font-size: 2em;
+// 	line-height: 1.4em;
+// 	text-decoration: none;
+// 	border: none;
+// 	@include shadow-black(0.25);
+// }
+
+
+.row-fluid [class*="span"].centered {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	float: none;
+}
+
+@import "splash";
+
+.footer {
+	display: none !important;  // HIDING THE LOGIN | SIGN UP FOOTER FOR NOW
+	margin-top: 12px;
+	margin-bottom: 15px;
+	text-align: center;
+	font-weight: 700;
+	font-size: 14px;
+	color: #666;
+	a {
+		text-decoration: none;
+		@include shadow-black(0.25);
+		color: #666;
+	}
+	a:hover {
+		color: white;
+		border-bottom: 2px white dotted;
+		@include shadow-black(0.15);
+	}
+}
+#splash-footer .social-media {
+
+	a{
+
+		background-position: 0, 0px;
+		height: 25px;
+		width: 25px;
+		zoom:1;
+		display:inline-block;
+		text-decoration:none;
+
+		&:hover{
+			background-position: 0 -25px;
+			text-decoration:none;
+			border:none;
+		}
+		&:active{
+			background-position: 0 -25px;
+			text-decoration:none;
+			border:none;
+		}
+	}
+
+	.tumblr-icon{
+		background:url('/images/tumblr.png') no-repeat;
+	}
+	.twitter-icon{
+		background:url('/images/twitter.png') no-repeat;
+	}
+	.facebook-icon{
+		background:url('/images/facebook.png') no-repeat;
+	}
+	.email-icon{
+		background:url('/images/email.png') no-repeat;
+	}
+}
+#plan-footer .social-media {
+
+	a{
+
+		background-position: 0, 0px;
+		height: 25px;
+		width: 25px;
+		zoom:1;
+		display:inline-block;
+		text-decoration:none;
+
+		&:hover{
+			background-position: 0 -25px;
+			text-decoration:none;
+			border:none;
+		}
+		&:active{
+			background-position: 0 -25px;
+			text-decoration:none;
+			border:none;
+		}
+	}
+
+	.tumblr-icon{
+		background:url('/images/tumblr.png') no-repeat;
+	}
+	.twitter-icon{
+		background:url('/images/twitter.png') no-repeat;
+	}
+	.facebook-icon{
+		background:url('/images/facebook.png') no-repeat;
+	}
+	.email-icon{
+		background:url('/images/email.png') no-repeat;
+	}
+}
+
+
+#splash-footer{
+	display:inline;
+}
+
+#splash-footer{
+	.copyright {
+		float:left;
+		padding: 15px 0 5px 5px;
+		font-size: 11px;
+		text-align: center;
+		margin-left:38px;
+		.copy {
+			font-size: 12px;
+		}
+	}
+
+	.social-media {
+		float:right;
+		padding: 10px 0 5px 5px;
+		text-align: center;
+		margin-right:44px;
+
+		a {
+			margin-right:8px;
+			&:last-child{
+			margin-right:0px;
+			}
+		}
+	}
+}
+
+#plan-footer{
+
+	.copyright, .social-media{
+		margin-left:auto;
+		margin-right:auto;
+	}
+
+	.copyright {
+		width:250px;
+		padding: 12px 0 5px 5px;
+		font-size: 11px;
+		text-align: center;
+
+		.copy {
+			font-size: 12px;
+		}
+	}
+
+	.social-media {
+		width:160px;
+
+		padding: 10px 0 5px 5px;
+		text-align: center;
+
+		a {
+			margin-right:8px;
+			&:last-child{
+			margin-right:0px;
+			}
+		}
+	}
+}
+
+.favorite {
+	// display: none;
+	@include size(15px, 20px);
+	float: right;
+	line-height: 30px;
+	text-shadow: 1px 1px 5px #ddd, -1px -1px 5px #555;
+	opacity: 0.99;
+}
+.favorite.active, .favorite:hover {
+	//background: -webkit-gradient(linear, left top, left bottom, from(#dc785e), to(#c65f43));
+	//-webkit-background-clip: text;
+	//-webkit-text-fill-color: transparent;
+	text-shadow: 1px 1px 5px #ddd, -1px -1px 5px #555, -1px -1px 2px #000;
+	color: #d86749;
+}
+
+.disabled { color: #aaa; text-shadow: none; }
+
+.btn.btn-route {
+	color: white;
+	font-size: 16px;
+	font-weight: 700;
+	padding: 4px 8px;
+	vertical-align: baseline;
+	@include shadow-black(0.25);
+	@include colorize(#90b89f);
+}
+.btn-route.btn-small {
+	border-top-color: #90b89f;
+	font-size: 14px;
+	min-width: 20px;
+}
+.btn-route.expandable {
+	display: none;
+}
+.btn-route.expand {
+	@include colorize($wbBlueDark);
+}
+
+.btn.btn-stop {
+	padding: 2px 5px;
+	border-bottom: none;
+	vertical-align: baseline;
+}
+
+.btn.btn-go {
+	font-weight: bold;
+	border: 1px solid #5e9b99;
+	@include shadow-black(0.25);
+	@include gradientBar($wbBlue, $wbBlueDark);
+	background-color: darken($wbBlueDark, 1%);
+}
+
+.btn.btn-map {
+	color: white;
+	font-size: 18px;
+	line-height: 35px;
+	font-weight: 700;
+	text-transform: uppercase;
+	box-sizing: border-box;
+	padding-left: 0;
+	padding-right: 0;
+	@include border-radius($borderRadius);
+}
+
+// nice formatting for about and issues pages
+.about, .issues {
+	margin: 20px auto;
+	background-color:white;
+	color:#707070;
+	@include border-radius(15px);
+	h1 {
+		text-align: center;
+		margin-bottom: 15px;
+	}
+	.content {
+		margin: 15px;
+		padding:15px;
+
+		h2 {
+			font-size:1.5rem;
+			font-family:'Open Sans', sans-serif;
+			text-transform:uppercase;
+		}
+		.buttons{
+			margin-top:30px;
+		}
+	}
+	@media #{$phone}, #{$tablet}{
+		.content {
+
+			padding:10px;
+
+			h1 {
+				font-size: 27px;
+			}
+			h2{
+				font-size: 1.2rem;
+				padding-top:12px;
+				line-height:30px;
+			}
+			.buttons .btn{
+				font-size: 14px;
+				float:left;
+				width:100%;
+				margin:6px 0px;
+			}
+			.buttons{
+				margin-bottom:70px;
+				margin-top:10px;
+			}
+		}
+	}
+}
+
+
+
+// constrain the width of the issues google form
+.issues iframe {
+	margin: auto;
+	display: block;
+	max-width: 500px;
+	width: 100%;
+	height: 850px;
+}
+
+// a small logo, constrained in height. used on about & issues pages
+.logo-small {
+	display: block;
+	margin: auto;
+	max-height: 110px;
+	margin-top: 20px;
+}
+
+.safety .icon-warning-sign {
+	color: $orange;
+}
+
+// some generic styling changes for all modals
+.modal {
+	background: transparent;
+	.modal-header {
+		border-radius: 6px 6px 0 0;
+		h3 {
+			text-align: center;
+			font-size: 18px;
+		}
+		.btn {
+			color: #333;
+			font-weight: normal;
+			font-size: 15px;
+			@media #{$phone} { display: block; }
+		}
+	}
+	// shrink the dialog on phones so it looks nice
+	@media #{$tablet} {
+		max-height: 90%;
+		left: 5%;
+		top: 5%;
+		margin: 0 !important;
+		width: 90% !important;
+		.modal-body { max-height: 160px; }
+	}
+	@media #{$phone} {
+	}
+}
+
+// the modal dialog for geocode result disambiguation!
+#disambiguate {
+	width: 480px;
+	margin-left: -240px;
+	.modal-body {
+		// buttons aligned vertically separated by small margin
+		.btn {
+			width: 100%;
+			display: block;
+			margin-bottom: 8px;
+			box-sizing: border-box;
+			vertical-align: baseline;
+		}
+		.btn:last-child  { margin-bottom: 0; }
+	}
+	input {height: auto; }
+	label {margin-bottom: 0; }
+}
+
+.input-container {
+	position: relative;
+	margin-bottom: 8px;
+	input {
+		margin-bottom: 0;
+	}
+	i {
+		position: absolute;
+		top: 50%;
+		font-size: 24px;
+		margin-top: -12px;
+		line-height: 100%;
+		opacity: 0.5;
+	}
+	i:hover { opacity: 0.9; }
+	.start {
+		left: 8px;
+		color: green;
+	}
+	.end {
+		left: 8px;
+		color: red;
+	}
+	.find {
+		right: 8px;
+	}
+}
+
+.tooltip {
+	z-index: 1060;
+	text-transform: uppercase;
+	.tooltip-inner {
+		background: rgba(255, 255, 255, 0.8);
+		color: #333;
+	}
+	.tooltip-arrow {
+		border-bottom-color: rgba(255, 255, 255, 0.8) !important;
+	}
+}
+
+
+div.popout {
+	position: fixed;
+	top: $navbar_height + 10px;
+	right: 10px;
+	width: 250px;
+	z-index: 1050;
+	box-shadow: 0 0 10px 0px #999;
+	border-radius: 6px;
+	header {
+		border-width: 1px;
+		border-style: solid;
+		border-radius: 6px 6px 0 0;
+	}
+	.popout-content {
+		background: #F5F5F2;
+		border: 1px solid #ccc;
+		border-radius: 0 0 6px 6px;
+		max-height: 250px;
+		overflow: auto;
+
+		form {
+			padding: 15px;
+			text-align: right;
+			margin: 0;
+			input[type=text] {
+				box-sizing: border-box;
+				height: 40px;
+				font-size: 16px;
+				line-height: auto;
+				@include placeholder(#eaeaea);
+			}
+			.input-append {
+				input {
+					width: 85%;
+				}
+				.btn {
+					box-sizing: border-box;
+					width: 15%;
+					height: 40px;
+					line-height: 40px;
+					font-size: 20px;
+					padding: 0;
+				}
+			}
+			> .btn { width: 100%; }
+		}
+
+		ul {
+			list-style: none;
+			margin: 0;
+			min-height: 15px;
+		}
+		li {
+			padding: 10px 20px;
+			span {
+				margin-left: 10px;
+				font-size: 12px;
+				text-transform: uppercase;
+			}
+			i {
+				font-size: 1.4em;
+				color: #bbb;
+				vertical-align: middle;
+			}
+			// hide border on menu links
+			a { border-bottom: none !important; }
+			// show link border on interior span (just the text)
+			a:hover span { border-bottom: 1px dotted; }
+		}
+		li.inline { display: inline-block; }
+
+		ul.favorites li { text-align: center; }
+
+		// put a 1px border between list items, but not on outsides
+		li + li {
+			border-top: 1px solid #bfbfbf;
+		}
+	}
+
+	/* nice CSS arrow from http://cssarrowplease.com/ */
+	/* modified to appear by itself above popout contents */
+	.top-arrow {
+		position: absolute;
+		background: #93D2D0;
+		right: 50%;
+		top: 1px;
+		z-index: 1055;
+	}
+	.top-arrow:after, .top-arrow:before {
+		position: absolute;
+		width: 0;
+		height: 0;
+		bottom: 100%;
+		border: solid transparent;
+		content: " ";
+		pointer-events: none;
+	}
+	.top-arrow:after {
+		left: 50%;
+		border-color: rgba(147, 210, 208, 0);
+		border-bottom-color: #93D2D0;
+		border-width: 10px;
+		margin-left: -10px;
+	}
+	.top-arrow:before {
+		left: 50%;
+		border-color: rgba(94, 155, 153, 0);
+		border-bottom-color: #5E9B99;
+		border-width: 11px;
+		margin-left: -11px;
+	}
+}
+
+#splash-form > table i {
+	color: #4f4f4f;
+}
+
+[class^="icon-wb-"], [class*=" icon-wb-"] {
+	background: url('/assets/icons/tripselection.png') no-repeat;
+	background-position: 30px 30px;
+	@include size(19px, 14px);
+	display: block;
+	margin: 5px auto;
+}
+
+.icon-wb-walking {
+	background-position: -9px 0;
+}
+.icon-wb-transit {
+	background-position: -33px 0;
+}
+.icon-wb-transfers {
+	background-position: -60px 0;
+}
+.icon-wb-bike {
+}
+
+// FUN HACK to make splash form occupy the entire screen
+.layout.splash {
+	// hide map and title, they're not needed here
+	#map, #title { display: none}
+	// the form is actually in #navigation so make that div fullscreen
+	#navigation {
+		position: relative;
+		width: auto;
+		@extend .container-fluid;
+		margin: 50px auto 20px;
+		@include box-shadow(none);
+	}
+}
+

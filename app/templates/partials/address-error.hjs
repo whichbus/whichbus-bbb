@@ -1,0 +1,15 @@
+<h4>{{ title }}</h4>
+<p>{{ error.message }}</p>
+<form class="update">
+	{{#unless hasFrom }}
+	<input class="location" type="text" placeholder="Where ya at?" id="fromQuery" name="from" onfocus="this.select()" autocomplete="on" autofocus>
+	{{/unless}}
+	{{#unless hasTo }}
+	<input class="location" type="text" placeholder="Where ya headed?" id="toQuery" name="to" onfocus="this.select()" autocomplete="on" autofocus>
+	{{/unless}}
+
+	<button class="btn btn-update" type="submit">
+		{{#if restart}}Try again, from the top
+		{{else}} Update that bus! {{/if}}
+	</button>
+</form>
