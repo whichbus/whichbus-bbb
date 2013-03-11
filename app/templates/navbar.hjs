@@ -13,10 +13,10 @@
 	            <a class="icon settings dropdown" rel="tooltip" title="settings" data-target="#">
 	              <i class="icon-cog"></i><label>Settings</label>
 	            </a>
-	            <ul class="dropdown-menu unstyled" id="settings">
+	            <ul class="dropdown-menu unstyled arrow_box" id="settings">
 	            	<li><a href="#settings"><i class="icon-wrench"></i> Settings</a></li>
 	            	<li><a href="http://whichbus.uservoice.com/forums/181861-feedback" target="_blank">
-	            		<i class="icon-bullhorn"></i> Feedback <i class="icon-external-link"></i>
+	            		<i class="icon-bullhorn"></i> Feedback &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-external-link"></i>
 	            	</a></li>
 	            	<li><a href="#about"><i class="icon-question-sign"></i> About</a></li>
 	            </ul>

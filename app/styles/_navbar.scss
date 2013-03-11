@@ -57,12 +57,13 @@
 
 	// style open dropdown buttons like dropdown menu
 	.open > a.dropdown {
-		background: white;
-		color: #999;
-		@include border-radius(6px 6px 0 0);
-		border: 1px solid #ccc;
+		/*background: #fff;*/
+		/*color: #999;*/
+		text-shadow: 0 0px 7px rgba(0,0,0,0.25);
+		/*@include border-radius(6px 6px 0 0);
+		/*border: 1px solid #ccc;
 		border: 1px solid rgba(0, 0, 0, 0.2);
-		@include box-shadow(0 5px 10px rgba(0,0,0,0.2))
+		@include box-shadow(0 5px 10px rgba(0,0,0,0.2))*/
 
 	}
 
@@ -84,15 +85,51 @@
 
 // override bootstrap styles
 .dropdown-menu {
-	margin-top: -10px;
+	margin-top: -1px;
+	background-color:rgba(255,255,255,0.9);
+	border:none;
+
+	&.arrow_box {
+		position: absolute;
+		background: rgba(255,255,255,0.9);
+
+		&:after {
+			bottom: 100%;
+			border: solid transparent;
+			content: " ";
+			height: 0;
+			width: 0;
+			position: absolute;
+			pointer-events: none;
+			border-color: rgba(255, 255, 255, 0);
+			border-bottom-color: rgba(255,255,255,0.9);
+			border-width: 10px;
+			left: 75%;
+			margin-left: 10px;
+		}
+	}
+
+	.pull-right > & {
+	    right: 9px;
+	    left: auto;
+  	}
+
+
 
 	li {
 		a {
-			color: black;
+			color: #888;
 			padding: 8px 12px;
-			font-size: 1.2em;
+			font-size: .95em;
 			line-height: 1.4em;
 			text-align: left;
+			font-weight:lighter;
+			text-transform: uppercase;
+
+		&:hover { 
+			background:none;
+			color:$wbBlueDark;
+		}
 
 			i { padding-right: 5px; }
 		} 
