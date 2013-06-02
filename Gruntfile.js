@@ -323,6 +323,4 @@ module.exports = function (grunt) {
         'build'
     ]);
 
-    grunt.renameTask('clean', 'original-clean');
-    grunt.registerTask('clean', 'original-clean handlebars');
 };
