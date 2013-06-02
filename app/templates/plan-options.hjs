@@ -1,0 +1,40 @@
+<div class="row-fluid plan-options">
+	<div class="span6 trip-timing">
+		<h5>Trip Timing</h5>
+		<div class="btn-group arriveBy" data-toggle="buttons-radio">
+			<button class="btn active">Depart</button>
+			<button class="btn">Arrive</button>
+		</div>
+		<div class="input-prepend">
+			<i class="icon-time add-on"></i>
+			<input class="" type="time" id="time">
+		</div>
+		<div class="input-prepend">
+			<i class="icon-calendar add-on"></i>
+			<input class="input-small" type="date" id="date">
+		</div>
+		<div class="">
+			<button class="btn btn-go" id="update">UPDATE</button>
+			<button class="btn" id="cancel">CANCEL</button>
+		</div>
+	</div>
+	<div class="span6 advanced">
+		<h5>
+			Advanced 
+			<label class="checkbox pull-right"><input type="checkbox" checked id="save"/>Save</label>
+		</h5>
+		<div class="btn-group modes hide" data-toggle="buttons-checkbox">
+			<button class="btn active">BUS</button>
+			<button class="btn active">WALK</button>
+			<button class="btn">BIKE</button>
+		</div>
+		<h6>Walking Distance</h6>
+		<div class="btn-group maxWalkDistance" data-toggle="buttons-radio">
+			<button class="btn active">S</button>
+			<button class="btn">M</button>
+			<button class="btn">L</button>
+		</div>
+		<h6>Preferred Buses</h6>
+		<input type="text" id="preferredRoutes">
+	</div>
+</div>
