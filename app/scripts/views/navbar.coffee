@@ -7,7 +7,10 @@ define ['whichbus', 'bootstrap/bootstrap-dropdown'], (WhichBus, PopoutView) ->
 		initialize: ->
 
 		serialize: -> 
-			# @model.toJSON()
+			fragment = Backbone.history.fragment
+			if (idx = fragment?.indexOf('?')) >= 0 then fragment = fragment.substr(0, idx - 1)
+			# show back button if fragment is not empty
+			showBack: fragment isnt ''
 
 		beforeRender: ->
 			# set and insert views

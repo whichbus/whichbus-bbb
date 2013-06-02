@@ -27,7 +27,6 @@ define ['whichbus'], (WhichBus) ->
 			else
 				@$('#from-location').removeClass('btn-danger')
 			if (to? and from? and to.length > 3 and from.length > 3)
-				@remove()
 				Backbone.history.navigate "plan/#{from}/#{to}", true
 
 		fromCurrentLocation: -> @$("#from_query").val('here')

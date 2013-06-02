@@ -1,0 +1,40 @@
+$padding: 15px;
+
+.plan-options {
+
+	.trip-timing {
+		padding-left: $padding;
+
+		> * { 
+			margin-bottom: 11px;
+		}
+
+		.btn-group .btn {
+			width: 50%;
+		}
+
+		input {
+			width: 140px;
+		}
+	}
+
+	.advanced {
+		padding-right: $padding;
+
+		h6 {
+			margin-bottom: 2px;
+		}
+
+		.btn-group .btn {
+			padding-left: 0;
+			padding-right: 0;
+			width: 33%;
+		}
+
+		> input {
+			width: 100%;
+			box-sizing: border-box;
+			height: 30px;
+		}
+	}
+}

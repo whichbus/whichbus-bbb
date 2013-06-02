@@ -1,5 +1,8 @@
 define ->
-	defaultLocation: new google.maps.LatLng(47.6097, -122.3331)
+	defaultLocation:
+		name: 'Seattle'
+		vicinity: 'Seattle, WA'
+		position: new google.maps.LatLng(47.6097, -122.3331)
 
 	initialize: (map) ->
 		# initalize Places service using Google map object (tricky Google!)
@@ -24,10 +27,7 @@ define ->
 		error = (error) => 
 			console.error error.message
 			if resolveDefault
-				promise.resolve
-					name: 'Default'
-					vicinity: 'Seattle, WA'
-					position: @defaultLocation
+				promise.resolve @defaultLocation
 			else promise.reject error
 		# make the call with the callbacks we just wrote
 		navigator.geolocation.getCurrentPosition success, error

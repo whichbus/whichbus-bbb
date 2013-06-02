@@ -40,7 +40,8 @@
     }
 
     .icon-reply {
-      left: 5px;
+      left: 6px;
+      font-size: 18px;
       @include rotate(-135deg);
     }
   }
@@ -98,7 +99,9 @@
   }
   ol.itineraries, ol.trips {
     clear: both;
-    padding-top: $title_height;
+    @media #{$desktop} {
+      padding-top: $title_height;
+    }
   }
   ol.segments {
     display: none;

@@ -532,3 +532,16 @@ ul.icons {
 .icon-github-alt:before           { content: "\f113"; }
 .icon-folder-close-alt:before     { content: "\f114"; }
 .icon-folder-open-alt:before      { content: "\f115"; }
+
+.icon-arrow-up-left {
+  @extend .icon-arrow-up;
+  @include rotate(-45deg);
+  position: relative;
+  top: -3px;
+}
+.icon-arrow-up-right {
+  @extend .icon-arrow-up;
+  @include rotate(45deg);
+  position: relative;
+  top: -3px;
+}
