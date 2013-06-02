@@ -1,0 +1,14 @@
+<div class="well">
+	<h2>Default Location</h2>
+	<i id="status" class="icon-ok-sign success"></i> 
+	<span>
+		<input class="text" id="default-location" value="{{defaultLocation.name}}" /> 
+		<span id="address">{{defaultLocation.vicinity}}</span>
+	<br/><br/>
+	<small>A location used for address searching in the absense of your current location. If you disable location sharing then this location will be used as the search origin for addresses and businesses.</small>
+</div>
+
+<div class="well">
+	<h2>Cached Locations</h2>
+	<small>Manage your saved locations and create new ones!</small>
+</div>
