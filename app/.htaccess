@@ -123,7 +123,6 @@ AddType text/vtt                            vtt
 AddType text/x-component                    htc
 AddType text/x-vcard                        vcf
 
-
 # ----------------------------------------------------------------------
 # Allow concatenation from within specific js and css files
 # ----------------------------------------------------------------------
@@ -221,6 +220,7 @@ AddType text/x-vcard                        vcf
 # Feed
   ExpiresByType application/atom+xml      "access plus 1 hour"
   ExpiresByType application/rss+xml       "access plus 1 hour"
+
 
 # Favicon (cannot be renamed)
   ExpiresByType image/x-icon              "access plus 1 week"
@@ -330,6 +330,7 @@ FileETag None
 
 # If your web host doesn't allow the FollowSymlinks option, you may need to
 # comment it out and use `Options +SymLinksIfOwnerMatch`, but be aware of the
+
 # performance impact: http://goo.gl/Mluzd
 
 <IfModule mod_rewrite.c>
@@ -473,6 +474,7 @@ AddCharset utf-8 .atom .css .js .json .rss .vtt .xml
 # Block access to backup and source files. These files may be left by some
 # text/html editors and pose a great security danger, when anyone can access
 # them.
+
 <FilesMatch "(\.(bak|config|dist|fla|inc|ini|log|psd|sh|sql|swp)|~)$">
   Order allow,deny
   Deny from all
@@ -539,5 +541,6 @@ AddCharset utf-8 .atom .css .js .json .rss .vtt .xml
 
 # Increase cookie security
 <IfModule mod_php5.c>
+
   php_value session.cookie_httponly true
 </IfModule>

@@ -40,6 +40,7 @@
     return function(p){
       if ('.' != p.charAt(0)) return require(p);
 
+
       var path = parent.split('/')
         , segs = p.split('/');
       path.pop();
@@ -74,7 +75,9 @@
      * Chai version
      */
 
+
     exports.version = '1.4.2';
+
 
     /*!
      * Primary `Assertion` prototype
@@ -87,6 +90,7 @@
      */
 
     exports.AssertionError = require('./chai/error');
+
 
     /*!
      * Utils for plugins (not exported)
@@ -156,6 +160,7 @@
      */
 
     var AssertionError = require('./error')
+
       , util = require('./utils')
       , flag = util.flag;
 
@@ -241,6 +246,7 @@
           , expected: expected
           , stackStartFunction: (Assertion.includeStack) ? this.assert : flag(this, 'ssfi')
           , showDiff: showDiff
+
         });
       }
     };
@@ -297,6 +303,7 @@
        * - with
        * - at
        * - of
+
        *
        * @name language chains
        * @api public
@@ -372,6 +379,7 @@
 
       function an(type, msg) {
         if (msg) flag(this, 'message', msg);
+
         var obj = flag(this, 'object')
           , klassStart = type.charAt(0).toUpperCase()
           , klass = klassStart + type.slice(1)
@@ -402,7 +410,10 @@
        * @name include
        * @alias contain
        * @param {Object|String|Number} obj
+<<<<<<< HEAD
        * @param {String} message _optional_
+=======
+>>>>>>> master
        * @api public
        */
 
@@ -412,6 +423,7 @@
 
       function include (val, msg) {
         if (msg) flag(this, 'message', msg);
+
         var obj = flag(this, 'object')
         this.assert(
             ~obj.indexOf(val)
@@ -629,12 +641,19 @@
        * @alias eq
        * @alias deep.equal
        * @param {Mixed} value
+<<<<<<< HEAD
        * @param {String} message _optional_
        * @api public
        */
 
       function assertEqual (val, msg) {
         if (msg) flag(this, 'message', msg);
+=======
+       * @api public
+       */
+
+      function assertEqual (val) {
+>>>>>>> master
         var obj = flag(this, 'object');
         if (flag(this, 'deep')) {
           return this.eql(val);
@@ -646,6 +665,7 @@
             , val
             , this._obj
             , true
+
           );
         }
       }
@@ -670,6 +690,7 @@
 
       Assertion.addMethod('eql', function (obj, msg) {
         if (msg) flag(this, 'message', msg);
+
         this.assert(
             _.eql(obj, flag(this, 'object'))
           , 'expected #{this} to deeply equal #{exp}'
@@ -677,6 +698,7 @@
           , obj
           , this._obj
           , true
+
         );
       });
 
@@ -708,6 +730,7 @@
         var obj = flag(this, 'object');
         if (flag(this, 'doLength')) {
           new Assertion(obj, msg).to.have.property('length');
+
           var len = obj.length;
           this.assert(
               len > n
@@ -721,6 +744,7 @@
               obj > n
             , 'expected #{this} to be above ' + n
             , 'expected #{this} to be at most ' + n
+
           );
         }
       }
@@ -777,6 +801,7 @@
       Assertion.addMethod('gte', assertLeast);
 
       /**
+
        * ### .below(value)
        *
        * Asserts that the target is less than `value`.
@@ -804,6 +829,7 @@
         var obj = flag(this, 'object');
         if (flag(this, 'doLength')) {
           new Assertion(obj, msg).to.have.property('length');
+
           var len = obj.length;
           this.assert(
               len < n
@@ -817,6 +843,7 @@
               obj < n
             , 'expected #{this} to be below ' + n
             , 'expected #{this} to be at least ' + n
+
           );
         }
       }
@@ -873,6 +900,7 @@
       Assertion.addMethod('lte', assertMost);
 
       /**
+
        * ### .within(start, finish)
        *
        * Asserts that the target is within a range.
@@ -929,12 +957,14 @@
        * @name instanceof
        * @param {Constructor} constructor
        * @param {String} message _optional_
+
        * @alias instanceOf
        * @api public
        */
 
       function assertInstanceOf (constructor, msg) {
         if (msg) flag(this, 'message', msg);
+
         var name = _.getName(constructor);
         this.assert(
             flag(this, 'object') instanceof constructor
@@ -1001,6 +1031,7 @@
        * @param {String} name
        * @param {Mixed} value (optional)
        * @param {String} message _optional_
+
        * @returns value of property for chaining
        * @api public
        */
@@ -1019,6 +1050,7 @@
           if (undefined === value) {
             msg = (msg != null) ? msg + ': ' : '';
             throw new Error(msg + _.inspect(obj) + ' has no ' + descriptor + _.inspect(name));
+
           }
         } else {
           this.assert(
@@ -1057,6 +1089,7 @@
 
       function assertOwnProperty (name, msg) {
         if (msg) flag(this, 'message', msg);
+
         var obj = flag(this, 'object');
         this.assert(
             obj.hasOwnProperty(name)
@@ -1091,6 +1124,7 @@
        * @alias lengthOf
        * @param {Number} length
        * @param {String} message _optional_
+
        * @api public
        */
 
@@ -1102,6 +1136,7 @@
         if (msg) flag(this, 'message', msg);
         var obj = flag(this, 'object');
         new Assertion(obj, msg).to.have.property('length');
+
         var len = obj.length;
 
         this.assert(
@@ -1131,6 +1166,7 @@
 
       Assertion.addMethod('match', function (re, msg) {
         if (msg) flag(this, 'message', msg);
+
         var obj = flag(this, 'object');
         this.assert(
             re.exec(obj)
@@ -1156,6 +1192,7 @@
         if (msg) flag(this, 'message', msg);
         var obj = flag(this, 'object');
         new Assertion(obj, msg).is.a('string');
+
 
         this.assert(
             ~obj.indexOf(str)
@@ -1264,6 +1301,7 @@
        * @param {ErrorConstructor} constructor
        * @param {String|RegExp} expected error message
        * @param {String} message _optional_
+
        * @see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Error#Error_types
        * @api public
        */
@@ -1283,11 +1321,13 @@
           constructor = null;
         } else if (constructor && (constructor instanceof RegExp || 'string' === typeof constructor)) {
           errMsg = constructor;
+
           constructor = null;
         } else if (constructor && constructor instanceof Error) {
           desiredError = constructor;
           constructor = null;
           errMsg = null;
+
         } else if (typeof constructor === 'function') {
           name = (new constructor()).name;
         } else {
@@ -1334,6 +1374,7 @@
           } else {
             thrown = true;
             thrownError = err;
+
           }
         }
 
@@ -1425,6 +1466,7 @@
 
       Assertion.addMethod('satisfy', function (matcher, msg) {
         if (msg) flag(this, 'message', msg);
+
         var obj = flag(this, 'object');
         this.assert(
             matcher(obj)
@@ -1451,6 +1493,7 @@
 
       Assertion.addMethod('closeTo', function (expected, delta, msg) {
         if (msg) flag(this, 'message', msg);
+
         var obj = flag(this, 'object');
         this.assert(
             Math.abs(obj - expected) <= delta
@@ -1526,6 +1569,7 @@
     };
 
   }); // module: chai/error.js
+
 
   require.register("chai/interface/assert.js", function(module, exports, require){
     /*!
@@ -2391,6 +2435,7 @@
 
       /**
        * ### .throws(function, [constructor/string/regexp], [string/regexp], [message])
+
        *
        * Asserts that `function` will throw an error that is an instance of
        * `constructor`, or alternately that it will throw an error with message
@@ -2401,6 +2446,7 @@
        *     assert.throw(fn, ReferenceError);
        *     assert.throw(fn, ReferenceError, 'function throws a reference error');
        *     assert.throw(fn, ReferenceError, /function throws a reference error/);
+
        *
        * @name throws
        * @alias throw
@@ -2420,6 +2466,7 @@
         }
 
         new Assertion(fn, msg).to.Throw(errt, errs);
+
       };
 
       /**
@@ -2561,6 +2608,7 @@
                 writable: true
               });
             }
+
           , get: function(){
               if (this instanceof String || this instanceof Number) {
                 return new Assertion(this.constructor(this));
@@ -2584,6 +2632,7 @@
 
         should.exist = function (val, msg) {
           new Assertion(val, msg).to.exist;
+
         }
 
         // negation
@@ -2599,6 +2648,7 @@
 
         should.not.exist = function (val, msg) {
           new Assertion(val, msg).to.not.exist;
+
         }
 
         should['throw'] = should['Throw'];
@@ -2790,6 +2840,7 @@
 
     function _deepEqual(actual, expected, memos) {
 
+
       // 7.1. All identical values are equivalent, as determined by ===.
       if (actual === expected) {
         return true;
@@ -2821,6 +2872,7 @@
       // accounts for both named and indexed properties on Arrays.
       } else {
         return objEquiv(actual, expected, memos);
+
       }
     }
 
@@ -2851,6 +2903,7 @@
         memos = [];
       }
 
+
       //~~~I've managed to break Object.keys through screwy arguments passing.
       //   Converting to array solves the problem.
       if (isArguments(a)) {
@@ -2860,6 +2913,7 @@
         a = pSlice.call(a);
         b = pSlice.call(b);
         return _deepEqual(a, b, memos);
+
       }
       try {
         var ka = Object.keys(a),
@@ -2868,6 +2922,7 @@
       } catch (e) {//happens when one is a string literal and the other isn't
         return false;
       }
+
 
       // having the same number of owned properties (keys incorporates
       // hasOwnProperty)
@@ -2886,6 +2941,7 @@
       // remember objects we have compared to guard against circular references
       memos.push([ a, b ]);
 
+
       //equivalent values for every corresponding key, and
       //~~~possibly expensive deep test
       for (i = ka.length - 1; i >= 0; i--) {
@@ -2895,6 +2951,7 @@
 
       return true;
     }
+
 
   }); // module: chai/utils/eql.js
 
@@ -2953,6 +3010,7 @@
     module.exports = function (obj, args) {
       var actual = args[4];
       return 'undefined' !== typeof actual ? actual : obj._obj;
+
     };
 
   }); // module: chai/utils/getActual.js
@@ -3291,7 +3349,7 @@
         return html;
       }
     };
-      
+
     // Returns true if object is a DOM element.
     var isDOMElement = function (object) {
       if (typeof HTMLElement === 'object') {

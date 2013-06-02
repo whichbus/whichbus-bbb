@@ -32,11 +32,11 @@ require.register = function (path, fn){
 require.relative = function (parent) {
     return function(p){
       if ('.' != p.charAt(0)) return require(p);
-      
+
       var path = parent.split('/')
         , segs = p.split('/');
       path.pop();
-      
+
       for (var i = 0; i < segs.length; i++) {
         var seg = segs[i];
         if ('..' == seg) path.pop();
@@ -52,7 +52,6 @@ require.register("browser/debug.js", function(module, exports, require){
 
 module.exports = function(type){
   return function(){
-    
   }
 };
 }); // module: browser/debug.js
@@ -62,14 +61,14 @@ require.register("browser/diff.js", function(module, exports, require){
 
 /*
  * Text diff implementation.
- * 
+ *
  * This library supports the following APIS:
  * JsDiff.diffChars: Character by character diff
  * JsDiff.diffWords: Word (as defined by \b regex) diff which ignores whitespace
  * JsDiff.diffLines: Line based diff
- * 
+ *
  * JsDiff.diffCss: Diff targeted at CSS content
- * 
+ *
  * These methods are based on the implementation proposed in
  * "An O(ND) Difference Algorithm and its Variations" (Myers, 1986).
  * http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.4.6927
@@ -187,7 +186,7 @@ var JsDiff = (function() {
         while (newPos+1 < newLen && oldPos+1 < oldLen && this.equals(newString[newPos+1], oldString[oldPos+1])) {
           newPos++;
           oldPos++;
-          
+
           this.pushComponent(basePath.components, newString[newPos], undefined, undefined);
         }
         basePath.newPos = newPos;
@@ -209,24 +208,24 @@ var JsDiff = (function() {
         return value;
       }
   };
-  
+
   var CharDiff = new fbDiff();
-  
+
   var WordDiff = new fbDiff(true);
   WordDiff.tokenize = function(value) {
     return removeEmpty(value.split(/(\s+|\b)/));
   };
-  
+
   var CssDiff = new fbDiff(true);
   CssDiff.tokenize = function(value) {
     return removeEmpty(value.split(/([{}:;,]|\s+)/));
   };
-  
+
   var LineDiff = new fbDiff();
   LineDiff.tokenize = function(value) {
     return value.split(/^/m);
   };
-  
+
   return {
     diffChars: function(oldStr, newStr) { return CharDiff.diff(oldStr, newStr); },
     diffWords: function(oldStr, newStr) { return WordDiff.diff(oldStr, newStr); },
@@ -274,7 +273,7 @@ var JsDiff = (function() {
             var prev = diff[i-1];
             oldRangeStart = oldLine;
             newRangeStart = newLine;
-            
+
             if (prev) {
               curRange = contextLines(prev.lines.slice(-4));
               oldRangeStart -= curRange.length;
@@ -819,7 +818,6 @@ var Suite = require('../suite')
 
 /**
  * BDD-style interface:
- * 
  *      describe('Array', function(){
  *        describe('#indexOf()', function(){
  *          it('should return -1 when not present', function(){
@@ -831,7 +829,6 @@ var Suite = require('../suite')
  *          });
  *        });
  *      });
- * 
  */
 
 module.exports = function(suite){
@@ -876,7 +873,7 @@ module.exports = function(suite){
      * and callback `fn` containing nested suites
      * and/or tests.
      */
-  
+
     context.describe = context.context = function(title, fn){
       var suite = Suite.create(suites[0], title);
       suites.unshift(suite);
@@ -896,6 +893,7 @@ module.exports = function(suite){
       suite.pending = true;
       suites.unshift(suite);
       fn.call(suite);
+
       suites.shift();
     };
 
@@ -956,19 +954,19 @@ var Suite = require('../suite')
 
 /**
  * TDD-style interface:
- * 
+ *
  *     exports.Array = {
  *       '#indexOf()': {
  *         'should return -1 when the value is not present': function(){
- *           
+ *
  *         },
  *
  *         'should return the correct index when the value is present': function(){
- *           
+ *
  *         }
  *       }
  *     };
- * 
+ *
  */
 
 module.exports = function(suite){
@@ -1028,27 +1026,27 @@ var Suite = require('../suite')
 
 /**
  * QUnit-style interface:
- * 
+ *
  *     suite('Array');
- *     
+ *
  *     test('#length', function(){
  *       var arr = [1,2,3];
  *       ok(arr.length == 3);
  *     });
- *     
+ *
  *     test('#indexOf()', function(){
  *       var arr = [1,2,3];
  *       ok(arr.indexOf(1) == 0);
  *       ok(arr.indexOf(2) == 1);
  *       ok(arr.indexOf(3) == 2);
  *     });
- *     
+ *
  *     suite('String');
- *     
+ *
  *     test('#length', function(){
  *       ok('foo'.length == 3);
  *     });
- * 
+ *
  */
 
 module.exports = function(suite){
@@ -1091,7 +1089,7 @@ module.exports = function(suite){
     /**
      * Describe a "suite" with the given `title`.
      */
-  
+
     context.suite = function(title){
       if (suites.length > 1) suites.shift();
       var suite = Suite.create(suites[0], title);
@@ -1129,7 +1127,6 @@ var Suite = require('../suite')
  *          suiteSetup(function(){
  *
  *          });
- *          
  *          test('should return -1 when not present', function(){
  *
  *          });
@@ -1234,6 +1231,7 @@ module.exports = function(suite){
     context.test.skip = function(title){
       context.test(title);
     };
+
   });
 };
 
@@ -1360,6 +1358,7 @@ Mocha.prototype.reporter = function(reporter){
     }
     if (!this._reporter) throw new Error('invalid reporter "' + reporter + '"');
   }
+
   return this;
 };
 
@@ -1551,6 +1550,7 @@ Mocha.prototype.run = function(fn){
   var reporter = new this._reporter(runner);
   runner.ignoreLeaks = options.ignoreLeaks;
   runner.asyncOnly = options.asyncOnly;
+
   if (options.grep) runner.grep(options.grep, options.invert);
   if (options.globals) runner.globals(options.globals);
   if (options.growl) this._growl(runner, reporter);
@@ -1653,6 +1653,7 @@ var tty = require('browser/tty')
   , diff = require('browser/diff')
   , ms = require('../ms');
 
+
 /**
  * Save timer references to avoid Sinon interfering (see GH-237).
  */
@@ -1710,7 +1711,7 @@ exports.colors = {
 /**
  * Default symbol map.
  */
- 
+
 exports.symbols = {
   ok: '✓',
   err: '✖',
@@ -1814,12 +1815,14 @@ exports.list = function(failures){
       err.expected = expected = JSON.stringify(expected, null, 2);
     }
 
+
     // actual / expected diff
     if ('string' == typeof actual && 'string' == typeof expected) {
       var len = Math.max(actual.length, expected.length);
 
       if (len < 20) msg = errorDiff(err, 'Chars', escape);
       else msg = errorDiff(err, 'Words', escape);
+
 
       // linenos
       var lines = msg.split('\n');
@@ -1895,6 +1898,7 @@ function Base(runner) {
 
     var medium = test.slow() / 2;
     test.speed = test.duration > test.slow()
+
       ? 'slow'
       : test.duration > medium
         ? 'medium'
@@ -1941,6 +1945,7 @@ Base.prototype.epilogue = function(){
   // failure
   if (stats.failures) {
     fmt = color('bright fail', '  ' + exports.symbols.err)
+
       + color('fail', ' %d of %d %s failed')
       + color('light', ':')
 
@@ -2304,6 +2309,7 @@ function HTML(runner, root) {
     var name = /fail/.test(report.className) ? '' : ' fail';
     report.className = report.className.replace(/fail|pass/g, '') + name;
     if (report.className.trim()) hideSuitesWithout('test fail');
+
   });
 
   root.appendChild(stat);
@@ -2316,6 +2322,7 @@ function HTML(runner, root) {
 
     // suite
     var url = '?grep=' + encodeURIComponent(suite.fullTitle());
+
     var el = fragment('<li class="suite"><h1><a href="%s">%s</a></h1></li>', url, escape(suite.title));
 
     // container
@@ -2331,6 +2338,7 @@ function HTML(runner, root) {
 
   runner.on('fail', function(test, err){
     if ('hook' == test.type) runner.emit('test end', test);
+
   });
 
   runner.on('test end', function(test){
@@ -2338,6 +2346,7 @@ function HTML(runner, root) {
 
     // TODO: add to stats
     var percent = stats.tests / this.total * 100 | 0;
+
     if (progress) progress.update(percent).draw(ctx);
 
     // update stats
@@ -2353,6 +2362,7 @@ function HTML(runner, root) {
       var el = fragment('<li class="test pass pending"><h2>%e</h2></li>', test.title);
     } else {
       var el = fragment('<li class="test fail"><h2>%e <a href="?grep=%e" class="replay">‣</a></h2></li>', test.title, encodeURIComponent(test.fullTitle()));
+
       var str = test.err.stack || test.err.toString();
 
       // FF / Opera do not add the message
@@ -2390,6 +2400,7 @@ function HTML(runner, root) {
 
     // Don't call .appendChild if #mocha-report was already .shift()'ed off the stack.
     if (stack[0]) stack[0].appendChild(el);
+
   });
 }
 
@@ -2937,6 +2948,7 @@ function List(runner) {
 
   runner.on('pass', function(test){
     var fmt = color('checkmark', '  '+Base.symbols.dot)
+
       + color('pass', ' %s: ')
       + color(test.speed, '%dms');
     cursor.CR();
@@ -3034,6 +3046,7 @@ function Markdown(runner) {
     ++level;
     var slug = utils.slug(suite.fullTitle());
     buf += '<a name="' + slug + '"></a>' + '\n';
+
     buf += title(suite.title) + '\n';
   });
 
@@ -3080,7 +3093,7 @@ exports = module.exports = Min;
 
 function Min(runner) {
   Base.call(this, runner);
-  
+
   runner.on('start', function(){
     // clear screen
     process.stdout.write('\u001b[2J');
@@ -3414,6 +3427,7 @@ function Progress(runner, options) {
   options.open = options.open || '[';
   options.complete = options.complete || '▬';
   options.incomplete = options.incomplete || Base.symbols.dot;
+
   options.close = options.close || ']';
   options.verbose = false;
 
@@ -3525,6 +3539,7 @@ function Spec(runner) {
     if ('fast' == test.speed) {
       var fmt = indent()
         + color('checkmark', '  ' + Base.symbols.ok)
+
         + color('pass', ' %s ');
       cursor.CR();
       console.log(fmt, test.title);
@@ -3553,6 +3568,7 @@ function Spec(runner) {
 function F(){};
 F.prototype = Base.prototype;
 Spec.prototype = new F;
+
 Spec.prototype.constructor = Spec;
 
 
@@ -3592,6 +3608,7 @@ function TAP(runner) {
 
   runner.on('start', function(){
     var total = runner.grepTotal(runner.suite);
+
     console.log('%d..%d', 1, total);
   });
 
@@ -3605,6 +3622,7 @@ function TAP(runner) {
 
   runner.on('pass', function(test){
     passes++;
+
     console.log('ok %d %s', n, title(test));
   });
 
@@ -3746,7 +3764,7 @@ function XUnit(runner) {
   runner.on('pass', function(test){
     tests.push(test);
   });
-  
+
   runner.on('fail', function(test){
     tests.push(test);
   });
@@ -3763,7 +3781,8 @@ function XUnit(runner) {
     }, false));
 
     tests.forEach(test);
-    console.log('</testsuite>');    
+    console.log('</testsuite>');
+
   });
 }
 
@@ -4246,7 +4265,7 @@ Runner.prototype.fail = function(test, err){
   if ('string' == typeof err) {
     err = new Error('the string "' + err + '" was thrown, throw an Error :)');
   }
-  
+
   this.emit('fail', test, err);
 };
 
@@ -4396,7 +4415,6 @@ Runner.prototype.runTest = function(fn){
     , self = this;
 
   if (this.asyncOnly) test.asyncOnly = true;
-
   try {
     test.on('error', function(err){
       self.fail(test, err);
@@ -4587,6 +4605,7 @@ function filterLeaks(ok, globals) {
       if (~ok.indexOf('*')) return 0 == key.indexOf(ok.split('*')[0]);
       // Opera and IE expose global variables for HTML element IDs (issue #243)
       if (/^mocha-/.test(key)) return true;
+
       return key == ok;
     });
     return matched.length == 0 && (!global.navigator || 'onerror' !== key);
@@ -5005,7 +5024,7 @@ exports.indexOf = function(arr, obj, start){
 
 /**
  * Array#reduce (<=IE8)
- * 
+ *
  * @param {Array} array
  * @param {Function} fn
  * @param {Object} initial value
@@ -5031,6 +5050,7 @@ exports.reduce = function(arr, fn, val){
  */
 
 exports.filter = function(arr, fn){
+
   var ret = [];
 
   for (var i = 0, l = arr.length; i < l; i++) {
