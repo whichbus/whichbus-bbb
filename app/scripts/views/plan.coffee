@@ -45,14 +45,18 @@ define ['whichbus', 'models/plan', 'views/itinerary', 'views/plan-error'], (Whic
 			# move start and end markers to new locations now that the plan has loaded
 			WhichBus.Map.moveMarker @start, @model.get('from'), true
 			WhichBus.Map.moveMarker @end, @model.get('to'), true
-
+			# render itineraries
 			@errorView?.remove()
 			@model.get('itineraries')?.each (item) =>
 				@insertView '#itineraries', new WhichBus.Views.Itinerary(model: item)
+			# render plan options
+			@setView '#options', new WhichBus.Views.Options(model: @model)
 
 		afterRender: ->
 			# expand first itinerary
 			@$('#itineraries header:first').click()
+			# set up bootstrap collapses for plan options menu
+			@$el.collapse()
 
 		cleanup: ->
 			WhichBus.Map.removeLayer @start, @end

@@ -6,6 +6,7 @@ define ->
     hours = if parts[6]?.toLowerCase() == 'pm' then parseInt(parts[4]) + 12 else parts[4]
     new Date(parts[1], parts[2]-1, parts[3], hours, parts[5])
 
+  # 12-hour time formatting with optional AM/PM
   format_time: (input, period=true) ->
     # make sure we have a Date object and extract relevant bits
     date = if input not instanceof Date then new Date(input) else input
@@ -16,8 +17,16 @@ define ->
     if period then time += " #{if hours < 12 then 'a' else 'p'}m"
     time
 
+  # 24-hour time formatting
+  format_time_24: (input) ->
+    return unless input
+    # make sure we have a Date object and extract relevant bits
+    date = if input not instanceof Date then new Date(input) else input
+    "#{date.getHours()}:#{pad(date.getMinutes(), 2)}"
+
   # YYYY-MM-DD format with custom separator
   format_date: (input, separator='-') ->
+    return unless input
     date = if input not instanceof Date then new Date(input) else input
     [date.getFullYear(), pad(date.getMonth() + 1, 2), pad(date.getDate(), 2)].join(separator)
 

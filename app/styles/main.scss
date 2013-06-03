@@ -209,7 +209,7 @@ header.green, .gradient.green {
 }
 
 // style icons in navbar
-a.icon {
+.icon {
 	display: inline-block;
 	@include size(100%, 34px);
 	// line-height: 34px;
@@ -220,10 +220,11 @@ a.icon {
 	@include shadow-black(0.25);
 	opacity: 0.99;
 	color: white;
+	background: none;
 	border: none !important;
 }
-a.icon:hover { color: #F5F5F2; }
-a.icon:hover, a.icon.active {
+.icon:hover { color: #F5F5F2; }
+.icon:hover, .icon.active {
 	// invert border on hover or active
 	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
 }

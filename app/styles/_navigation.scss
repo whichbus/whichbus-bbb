@@ -88,6 +88,12 @@
     }
   }
 
+  #options {
+    @media #{$desktop} {
+      padding-top: $title_height;
+    }
+  }
+
   ol {
     // z-index: -1;
     li {
@@ -99,9 +105,6 @@
   }
   ol.itineraries, ol.trips {
     clear: both;
-    @media #{$desktop} {
-      padding-top: $title_height;
-    }
   }
   ol.segments {
     display: none;

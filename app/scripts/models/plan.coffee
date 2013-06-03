@@ -7,15 +7,22 @@ define ['whichbus', 'geocode-promise', 'models/itinerary'], (WhichBus, Geocode) 
 			arriveBy: false
 			modes: ['TRANSIT','WALK']
 			optimize: 'QUICK'
+			geocode: true
+			maxWalkDistance: 1000
 
 		defaultOptions:
-			maxWalkDistance: 1200
 			transferPenalty: 300
 			maxTransfers: 1
 			# reverseOptimizeOnTheFly: true
 			showIntermediateStops: true
 
 		itinerary: (index) -> @get('itineraries').models[index]
+
+		clear: -> 
+			# deletes itineraries from model so the view will render progress bar instead.
+			# useful when updating plan options and fetching new itineraries.
+			@set 'itineraries', undefined
+			@
 
 		# parse OTP response, return attributes to set on model
 		parse: (response, options) ->
@@ -34,13 +41,17 @@ define ['whichbus', 'geocode-promise', 'models/itinerary'], (WhichBus, Geocode) 
 		sync: (method, model, options) ->
 			@trigger 'request'
 			if method == 'read'
-				# first find from and to locations...
-				finding = $.when Geocode.lookup(@get('from')), Geocode.lookup(@get('to'))
+				finding = null
+				if @get 'geocode'
+					# first find from and to locations...
+					finding = $.when Geocode.lookup(@get('from')), Geocode.lookup(@get('to'))
+				else
+					finding = $.when(@get('fromPlace'), @get('toPlace'))
 				# if both succeed then perform the OTP request...
 				finding.done (from, to) =>
 					# store geocode results in *Place so OTP won't overwrite them.
 					# use silent set to prevent immediate refresh.
-					@set { fromPlace: from, toPlace: to }, silent: true
+					@set { fromPlace: from, toPlace: to, geocode: false }, silent: true
 					xhr = $.getJSON @url(), @request(), (response) =>
 						clearTimeout @time
 						# OTP returns status 200 for everything, so handle response manually
@@ -60,14 +71,15 @@ define ['whichbus', 'geocode-promise', 'models/itinerary'], (WhichBus, Geocode) 
 
 		# create the request params from the models, needs some preprocessing
 		request: -> $.extend {}, @defaultOptions,
-			# date: Transit.format_otp_date(@get('date'))
-			# time: Transit.format_otp_time(@get('date'))
+			date: WhichBus.format_date(@get('date'))
+			time: WhichBus.format_time_24(@get('date'))
 			arriveBy: @get('arrive_by')
 			mode: @get('modes').join()
 			optimize: @get('optimize')
 			fromPlace: @positionString @get('fromPlace').position
 			toPlace: @positionString @get('toPlace').position
 			numItineraries: @get('desired_itineraries')
+			maxWalkDistance: @get('maxWalkDistance')
 
 		# form nice lat,lng string regardless of position format (object or G.LatLng)
 		positionString: (position) ->

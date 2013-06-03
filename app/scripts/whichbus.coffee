@@ -1,5 +1,5 @@
 # Libraries & Plugins
-define ["format", "constants", 'helpers'], (Format, Constants) ->
+define ["format", "constants", 'helpers', 'bootstrap/bootstrap-collapse'], (Format, Constants) ->
   # Provide a global location to place configuration settings and module creation.
   app = 
     # The root path to run the application.

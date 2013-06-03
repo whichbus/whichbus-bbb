@@ -7,13 +7,13 @@
 		{{else}}
 		{{from.name}}<br/>{{to.name}}
 		{{/if}}
-	    <a class="icon popout" id="options" title="customize journey">
-	        <i class="icon-reorder icon-affordance right"></i>
-	    </a>
+	    <button type="button" class="icon popout" title="customize journey" data-toggle="collapse" data-target="#options">
+	        <i class="icon-time icon-affordance right"></i>
+	    </button>
 	</div>
 </header>
 
-<div id="options"></div>
+<div id="options" class="collapse"></div>
 
 <ol class="itineraries" id="itineraries"></ol>
 {{#if loading}}<div class="progress progress-striped active"><div class="bar"></div></div>{{/if}}

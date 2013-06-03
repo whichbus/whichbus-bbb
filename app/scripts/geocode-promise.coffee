@@ -69,8 +69,7 @@ define ->
 		return console.error("LOOKUP FAIL: must provide query string") unless query?
 
 		# if query is special keyword return current position promise
-		if query is 'here'
-			return @getCurrentPosition().then(done, fail)
+		if query is 'here' then return @getCurrentPosition().then(done, fail)
 
 		# create promise for geocode() call, set callbacks if provided
 		promise = new $.Deferred()
